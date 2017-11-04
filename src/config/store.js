@@ -24,7 +24,8 @@ export default function configureStore(initialState = {}) {
         createReducer(),
         initialState,
         compose(
-            applyMiddleware(thunk)
+            applyMiddleware(thunk),
+            ...enhancers
         ));
     store.asyncReducers = {};
     return store;

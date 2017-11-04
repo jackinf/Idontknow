@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
+import { Button } from 'antd'
 
 class Counter extends Component {
     render() {
@@ -8,13 +9,10 @@ class Counter extends Component {
             <p>
                 Clicked: {value} times
                 {' '}
-                <button onClick={onIncrement}>
-                    +
-                </button>
+                <Button type="primary" onClick={onIncrement}>+</Button>
                 {' '}
-                <button onClick={onDecrement}>
-                    -
-                </button>
+                <Button type="primary" onClick={onDecrement}>-</Button>
+                {' '}
             </p>
         )
     }

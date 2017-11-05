@@ -1,0 +1,26 @@
+.hi {
+  font-size: 40px !important;
+}
+
+.test {
+  animation: Test-magic-2 infinite 2s linear, Test-spin infinite 10s linear;
+  background: aqua;
+  width: 30px;
+  height: 30px;
+}
+
+@keyframes Test-spin {
+  from { transform: rotate(0deg) }
+  to { transform: rotate(360deg) }
+}
+
+@keyframes Test-magic-1 {
+  from { background: red }
+  to { background: yellow }
+}
+
+@keyframes Test-magic-2 {
+  0% { background: red }
+  50% { background: yellow }
+  100% { background: red }
+}

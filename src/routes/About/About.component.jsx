@@ -1,8 +1,12 @@
 import React from 'react'
+import './About.css'
 
 const AboutComponent = () => (
-  <div>
-    <h2>About</h2>
+  <div id="hi">
+    <div className="test">
+        content
+    </div>
+    <h1 className="hi">About</h1>
   </div>
 );
 

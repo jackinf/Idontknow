@@ -5,5 +5,5 @@ RUN npm install -g yarn
 RUN yarn
 COPY . .
 RUN npm run build
-EXPOSE 9000
+EXPOSE 3000
 CMD ["npm", "run", "serve"]

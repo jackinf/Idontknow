@@ -1,0 +1,13 @@
+version: '3'
+
+services:
+  idontknow.rest:
+    image: idontknow.rest
+    build:
+      context: ./Idontknow.Rest
+      dockerfile: Dockerfile
+  idontknow.web:
+    image: idontknow.web
+    build:
+      context: ./Idontknow.Web
+      dockerfile: Dockerfile

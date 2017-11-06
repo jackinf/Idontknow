@@ -3,7 +3,7 @@ const path = require('path');
 const ip = require('ip');
 const app = express();
 const HOST = ip.address();
-const PORT = 9000;
+const PORT = 3000;
 
 app.use(express.static(path.join(__dirname, 'build')));
 

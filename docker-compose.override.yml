@@ -1,0 +1,11 @@
+version: '3'
+
+services:
+  idontknow.rest:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+    ports:
+      - "9005:80"
+  idontknow.web:
+    ports:
+      - "9006:3000"

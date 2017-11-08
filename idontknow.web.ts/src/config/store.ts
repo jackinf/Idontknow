@@ -3,6 +3,7 @@ import thunk from 'redux-thunk';
 import createReducer from './reducers';
 
 const __DEV__ = true; // TODO: get development mode from environments
+const asyncReducers: any = { b: () => 2 };
 
 export default function configureStore(initialState = {}) { // TODO: use typedef
 
@@ -21,18 +22,16 @@ export default function configureStore(initialState = {}) { // TODO: use typedef
     // ======================================================
     // Store Instantiation
     // ======================================================
-    const store = createStore(
-        createReducer({ b: () => 2 }),
+    return createStore(
+        createReducer(asyncReducers),
         initialState,
         compose(
             applyMiddleware(thunk),
             ...enhancers
         ));
-    // store.asyncReducers = {};
-    return store;
 }
 
 export function injectAsyncReducer(store: any, name: string, asyncReducer: any) { // TODO: Fix anys
-    store.asyncReducers[name] = asyncReducer;
-    store.replaceReducer(createReducer(store.asyncReducers));
+    asyncReducers[name] = asyncReducer;
+    store.replaceReducer(createReducer(asyncReducers));
 }

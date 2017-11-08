@@ -13,7 +13,8 @@ import createStore from './config/store';
 import HomeRoute from './routes/Home';
 // import TopicsRoute from './routes/Topics'
 // import AboutRoute from './routes/About'
-// import CounterRoute from './routes/Counter'
+import CounterRoute from './routes/Counter';
+import asyncComponent from './components/asyncComponent';
 
 const { Header, Footer, Content } = Layout;
 
@@ -38,7 +39,7 @@ class AppComponent extends React.Component {
                                 <Menu.Item key="1"><Link to="/">Home</Link></Menu.Item>
                                 {/*<Menu.Item key="2"><Link to="/about">About</Link></Menu.Item>*/}
                                 {/*<Menu.Item key="3"><Link to="/topics">Topics</Link></Menu.Item>*/}
-                                {/*<Menu.Item key="4"><Link to="/counter">Counter</Link></Menu.Item>*/}
+                                <Menu.Item key="2"><Link to="/counter">Counter</Link></Menu.Item>
                             </Menu>
                         </Header>
                         <Content style={{ padding: '0 50px' }}>
@@ -51,7 +52,7 @@ class AppComponent extends React.Component {
                                 <Route exact={true} path="/" component={HomeRoute}/>
                                 {/*<Route path="/topics" component={TopicsRoute}/>*/}
                                 {/*<Route path="/about" component={AboutRoute}/>*/}
-                                {/*<Route path="/counter" component={CounterRoute(store)}/>*/}
+                                <Route path="/counter" component={ asyncComponent(() =>  CounterRoute(store)) }/>
                             </div>
                         </Content>
                         <Footer style={{ textAlign: 'center' }}>

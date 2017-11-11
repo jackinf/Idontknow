@@ -1,0 +1,1 @@
+dotnet ef database update -p ..\Backend\Idontknow.DAL\Idontknow.DAL.csproj

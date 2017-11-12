@@ -1,11 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Idontknow.Controllers
+namespace Idontknow.Rest.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     public class ValuesController : Controller
     {
@@ -21,6 +20,14 @@ namespace Idontknow.Controllers
         public string Get(int id)
         {
             return "value";
+        }
+
+        // GET api/values/public
+        [AllowAnonymous]
+        [HttpGet("public")]
+        public string GetPublic()
+        {
+            return "This is a public method";
         }
 
         // POST api/values

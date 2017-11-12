@@ -1,31 +1,34 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using Idontknow.DAL.Domain.Repository;
 using Idontknow.DAL.Model;
 using Microsoft.EntityFrameworkCore;
 
 namespace Idontknow.DAL.Repository
 {
-    public class BlogRepository
+    public class BlogRepository : IBlogRepository
     {
+        private readonly ApplicationDbContext _context;
+
+        public BlogRepository(ApplicationDbContext context)
+        {
+            _context = context;
+        }
+        
         public List<Blog> GetAll(int rating)
         {
-            using (var db = new ApplicationDbContext())
-            {
-                return db.Blogs
-                    .Where(b => b.Rating > rating)
-                    .OrderBy(b => b.Url)
-                    .ToList();
-            }
+            return _context.Blogs
+                .Where(b => b.Rating > rating)
+                .OrderBy(b => b.Url)
+                .ToList();
         }
 
         public void Add(string url)
         {
-            using (var db = new ApplicationDbContext())
-            {
-                var blog = new Blog { Url = url };
-                db.Blogs.Add(blog);
-                db.SaveChanges();
-            }
+            var blog = new Blog { Url = url, Rating = new Random().Next(1, 5) };
+            _context.Blogs.Add(blog);
+            _context.SaveChanges();
         }
     }
 }

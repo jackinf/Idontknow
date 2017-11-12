@@ -65,12 +65,18 @@ namespace Idontknow
                 // Allow client applications to use the grant_type=password flow.
                 options.AllowPasswordFlow();
 
+                options.AllowRefreshTokenFlow();
+
+//                options.AllowAuthorizationCodeFlow();
+
                 // During development, you can disable the HTTPS requirement.
                 options.DisableHttpsRequirement();
 
 //                var path = Path.GetFullPath("C:\\AuthSample.pvk");
 //                var jwtSigningCert = new X509Certificate2(path, "123456aA!");
 //                options.AddSigningCertificate(jwtSigningCert);
+//                options.AddDevelopmentSigningCertificate();
+                options.AddEphemeralSigningKey();
             });
            
             services.AddScoped<IBlogRepository, BlogRepository>();
@@ -79,7 +85,7 @@ namespace Idontknow
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, RoleManager<IdentityRole> roleManager)
         {
             if (env.IsDevelopment())
             {
@@ -87,6 +93,32 @@ namespace Idontknow
             }
 
             app.UseMvc();
+
+            InitializeRoles(roleManager);
+        }
+        
+        private void InitializeRoles(RoleManager<IdentityRole> roleManager)
+        {
+            try
+            {
+                string[] roles = new[] { "User", "Manager", "Administrator" };
+                foreach (var role in roles)
+                {
+                    var roleExists = roleManager.RoleExistsAsync(role).Result;
+                    if (!roleExists)
+                    {
+                        var newRole = new IdentityRole(role);
+                        var res = roleManager.CreateAsync(newRole).Result;
+                        // In the real world, there might be claims associated with roles
+                        // _roleManager.AddClaimAsync(newRole, new )
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
         }
     }
 }

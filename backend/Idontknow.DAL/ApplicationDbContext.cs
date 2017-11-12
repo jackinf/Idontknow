@@ -6,13 +6,12 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Idontknow.DAL
 {
-    public class Role : IdentityRole<string> { }
     public class ApplicationUser : IdentityUser<string>{ }
 
     /// <summary>
     /// Custom names possible thanks to this https://github.com/aspnet/Identity/issues/892
     /// </summary>
-    public class ApplicationDbContext : IdentityDbContext<ApplicationUser, Role, string>, IEquatable<ApplicationDbContext>
+    public class ApplicationDbContext : IdentityDbContext<ApplicationUser, IdentityRole, string>, IEquatable<ApplicationDbContext>
     {
         public DbSet<Blog> Blogs { get; set; }
         public DbSet<Post> Posts { get; set; }
@@ -20,18 +19,13 @@ namespace Idontknow.DAL
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
         {            
         }
-        
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            optionsBuilder.UseSqlServer(@"Server=.;Database=Idontknow;Trusted_Connection=True;");
-        }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
 
             builder.Entity<ApplicationUser>().ToTable("User");
-            builder.Entity<Role>().ToTable("Role");
+            builder.Entity<IdentityRole>().ToTable("Role");
             builder.Entity<IdentityUserRole<string>>().ToTable("UserRole");
             builder.Entity<IdentityUserClaim<string>>().ToTable("UserClaim");
             builder.Entity<IdentityUserLogin<string>>().ToTable("UserLogin");

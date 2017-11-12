@@ -199,7 +199,8 @@ namespace Idontknow.Rest.Controllers
                 // Create a new authentication ticket.
                 var ticket = await CreateTicketAsync(request, user);
 
-                return SignIn(ticket.Principal, ticket.Properties, ticket.AuthenticationScheme);
+                var signInResult = SignIn(ticket.Principal, ticket.Properties, ticket.AuthenticationScheme);
+                return signInResult; // TODO: fix exception "An authorization or token response cannot be returned from this endpoint."
             }
 
             else if (request.IsAuthorizationCodeGrantType() || request.IsRefreshTokenGrantType())

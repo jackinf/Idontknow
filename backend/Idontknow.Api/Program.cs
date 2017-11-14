@@ -2,7 +2,7 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 
-namespace AuthorizationServer
+namespace Idontknow.Api
 {
     public static class Program
     {

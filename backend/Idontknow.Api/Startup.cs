@@ -1,29 +1,41 @@
-﻿using AspNet.Security.OpenIdConnect.Primitives;
-using AuthorizationServer.Models;
+﻿using System;
+using AspNet.Security.OpenIdConnect.Primitives;
+using Idontknow.DAL;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace AuthorizationServer
+namespace Idontknow.Api
 {
     public class Startup
     {
+        public Startup(IConfiguration configuration)
+        {
+            Configuration = configuration;
+        }
+        
+        public IConfiguration Configuration { get; }
+        
         public void ConfigureServices(IServiceCollection services)
         {
+            // TODO: use IConfiguration
             var configuration = new ConfigurationBuilder()
-                .AddJsonFile("config.json")
+                .AddJsonFile("appsettings.json")
                 .AddEnvironmentVariables()
                 .Build();
-
+            
             services.AddCors();
-            services.AddMvc();
+            services.AddMvc();    
 
             services.AddDbContext<ApplicationDbContext>(options =>
             {
                 // Configure the context to use Microsoft SQL Server.
-                options.UseSqlServer(configuration["Data:DefaultConnection:ConnectionString"]);
+                var cs = configuration.GetConnectionString("DefaultConnection");
+//                var cs = Configuration.GetConnectionString("DefaultConnection");
+                options.UseSqlServer(cs);
 
                 // Register the entity sets needed by OpenIddict.
                 // Note: use the generic overload if you need
@@ -110,15 +122,44 @@ namespace AuthorizationServer
             //     });
         }
 
-        public void Configure(IApplicationBuilder app)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, RoleManager<IdentityRole> roleManager)
         {
-            app.UseDeveloperExceptionPage();
-
+            if (env.IsDevelopment())
+            {
+                app.UseDeveloperExceptionPage();
+            }
+            
             app.UseAuthentication();
 
             app.UseMvcWithDefaultRoute();
 
             app.UseWelcomePage();
+            
+            InitializeRoles(roleManager);
+        }
+        
+        private void InitializeRoles(RoleManager<IdentityRole> roleManager)
+        {
+            try
+            {
+                string[] roles = new[] { "User", "Manager", "Administrator" };
+                foreach (var role in roles)
+                {
+                    var roleExists = roleManager.RoleExistsAsync(role).Result;
+                    if (!roleExists)
+                    {
+                        var newRole = new IdentityRole(role);
+                        var res = roleManager.CreateAsync(newRole).Result;
+                        // In the real world, there might be claims associated with roles
+                        // _roleManager.AddClaimAsync(newRole, new )
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
         }
     }
 }

@@ -1,12 +1,12 @@
 ﻿using System.Threading.Tasks;
-using AuthorizationServer.Models;
-using AuthorizationServer.ViewModels.Account;
+using Idontknow.Api.ViewModels.Account;
+using Idontknow.DAL;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
-namespace AuthorizationServer.Controllers
+namespace Idontknow.Api.Controllers
 {
     [Authorize]
     public class AccountController : Controller

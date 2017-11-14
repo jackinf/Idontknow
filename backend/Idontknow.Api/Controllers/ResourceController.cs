@@ -1,11 +1,11 @@
 ﻿using System.Threading.Tasks;
 using AspNet.Security.OAuth.Validation;
-using AuthorizationServer.Models;
+using Idontknow.DAL;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
-namespace AuthorizationServer.Controllers
+namespace Idontknow.Api.Controllers
 {
     [Route("api")]
     public class ResourceController : Controller

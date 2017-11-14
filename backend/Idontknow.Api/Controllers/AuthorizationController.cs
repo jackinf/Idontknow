@@ -11,14 +11,14 @@ using System.Threading.Tasks;
 using AspNet.Security.OpenIdConnect.Extensions;
 using AspNet.Security.OpenIdConnect.Primitives;
 using AspNet.Security.OpenIdConnect.Server;
-using AuthorizationServer.Models;
+using Idontknow.DAL;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using OpenIddict.Core;
 
-namespace AuthorizationServer.Controllers
+namespace Idontknow.Api.Controllers
 {
     public class AuthorizationController : Controller
     {

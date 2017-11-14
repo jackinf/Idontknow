@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace AuthorizationServer.ViewModels.Account
+namespace Idontknow.Api.ViewModels.Account
 {
     public class RegisterViewModel
     {

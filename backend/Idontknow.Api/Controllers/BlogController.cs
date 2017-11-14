@@ -3,7 +3,7 @@ using Idontknow.DAL.Domain.Repository;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Idontknow.Rest.Controllers
+namespace Idontknow.Api.Controllers
 {
     [Authorize(AuthenticationSchemes = OAuthValidationDefaults.AuthenticationScheme)]
     [Route("api/blog")]

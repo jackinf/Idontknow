@@ -6,4 +6,3 @@ C:\dev\__other\Idontknow\Backend\Idontknow.DAL\obj\Debug\netstandard2.0\Idontkno
 C:\dev\__other\Idontknow\Backend\Idontknow.DAL\obj\Debug\netstandard2.0\Idontknow.DAL.AssemblyInfo.cs
 C:\dev\__other\Idontknow\Backend\Idontknow.DAL\obj\Debug\netstandard2.0\Idontknow.DAL.dll
 C:\dev\__other\Idontknow\Backend\Idontknow.DAL\obj\Debug\netstandard2.0\Idontknow.DAL.pdb
-C:\dev\__other\Idontknow\Backend\Idontknow.DAL\obj\Debug\netstandard2.0\Idontknow.DAL.csprojResolveAssemblyReference.cache

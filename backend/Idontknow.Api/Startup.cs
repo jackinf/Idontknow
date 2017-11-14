@@ -1,54 +1,42 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Security.Cryptography.X509Certificates;
-using System.Threading.Tasks;
-using AspNet.Security.OpenIdConnect.Primitives;
-using Idontknow.DAL;
-using Idontknow.DAL.Domain.Repository;
-using Idontknow.DAL.Repository;
+﻿using AspNet.Security.OpenIdConnect.Primitives;
+using AuthorizationServer.Models;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
 
-namespace Idontknow
+namespace AuthorizationServer
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration)
-        {
-            Configuration = configuration;
-        }
-
-        public IConfiguration Configuration { get; }
-
-        // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            var configuration = new ConfigurationBuilder()
+                .AddJsonFile("config.json")
+                .AddEnvironmentVariables()
+                .Build();
+
             services.AddCors();
             services.AddMvc();
-            
+
             services.AddDbContext<ApplicationDbContext>(options =>
             {
-                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"));
+                // Configure the context to use Microsoft SQL Server.
+                options.UseSqlServer(configuration["Data:DefaultConnection:ConnectionString"]);
+
+                // Register the entity sets needed by OpenIddict.
+                // Note: use the generic overload if you need
+                // to replace the default OpenIddict entities.
                 options.UseOpenIddict();
             });
 
+            // Register the Identity services.
             services.AddIdentity<ApplicationUser, IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultTokenProviders();
-            
-            // Register the OAuth2 validation handler.
-            services.AddAuthentication()
-                .AddOAuthValidation();
 
-          // Configure Identity to use the same JWT claims as OpenIddict instead
+            // Configure Identity to use the same JWT claims as OpenIddict instead
             // of the legacy WS-Federation claims it uses by default (ClaimTypes),
             // which saves you from doing the mapping in your authorization controller.
             services.Configure<IdentityOptions>(options =>
@@ -67,7 +55,7 @@ namespace Idontknow
                 // Register the ASP.NET Core MVC binder used by OpenIddict.
                 // Note: if you don't call this method, you won't be able to
                 // bind OpenIdConnectRequest or OpenIdConnectResponse parameters.
-//                options.AddMvcBinders();
+                options.AddMvcBinders();
 
                 // Enable the token endpoint.
                 options.EnableTokenEndpoint("/connect/token");
@@ -120,45 +108,17 @@ namespace Idontknow
             //         options.ClientSecret = "875sqd4s5d748z78z7ds1ff8zz8814ff88ed8ea4z4zzd";
             //         options.RequireHttpsMetadata = false;
             //     });
-           
-            services.AddScoped<IBlogRepository, BlogRepository>();
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, RoleManager<IdentityRole> roleManager)
+        public void Configure(IApplicationBuilder app)
         {
-            if (env.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage();
-            }
+            app.UseDeveloperExceptionPage();
 
-            app.UseMvc();
+            app.UseAuthentication();
 
-            InitializeRoles(roleManager);
-        }
-        
-        private void InitializeRoles(RoleManager<IdentityRole> roleManager)
-        {
-            try
-            {
-                string[] roles = new[] { "User", "Manager", "Administrator" };
-                foreach (var role in roles)
-                {
-                    var roleExists = roleManager.RoleExistsAsync(role).Result;
-                    if (!roleExists)
-                    {
-                        var newRole = new IdentityRole(role);
-                        var res = roleManager.CreateAsync(newRole).Result;
-                        // In the real world, there might be claims associated with roles
-                        // _roleManager.AddClaimAsync(newRole, new )
-                    }
-                }
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e);
-                throw;
-            }
+            app.UseMvcWithDefaultRoute();
+
+            app.UseWelcomePage();
         }
     }
 }

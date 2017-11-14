@@ -1,10 +1,11 @@
 ﻿using System.Collections.Generic;
+using AspNet.Security.OAuth.Validation;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Idontknow.Rest.Controllers
 {
-    [Authorize]
+    [Authorize(AuthenticationSchemes = OAuthValidationDefaults.AuthenticationScheme)]
     [Route("api/[controller]")]
     public class ValuesController : Controller
     {

@@ -1,8 +1,11 @@
-﻿using Idontknow.DAL.Domain.Repository;
+﻿using AspNet.Security.OAuth.Validation;
+using Idontknow.DAL.Domain.Repository;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Idontknow.Rest.Controllers
 {
+    [Authorize(AuthenticationSchemes = OAuthValidationDefaults.AuthenticationScheme)]
     [Route("api/blog")]
     public class BlogController : Controller
     {

@@ -1,11 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Idontknow.DAL.Domain.Repository;
 using Idontknow.DAL.Model;
-using Idontknow.Domain.ViewModels.Blog;
-using Microsoft.EntityFrameworkCore;
+using Idontknow.Domain.Extension;
+using Idontknow.Domain.ViewModels.Result;
+using Idontknow.Domain.ViewModels.Service.Blog;
 
 namespace Idontknow.DAL.Repository
 {
@@ -33,41 +33,43 @@ namespace Idontknow.DAL.Repository
             _context.SaveChanges();
         }
 
-        public async Task<List<GetBlogsViewModel>> GetBlogs(int rating)
+        public async Task<PaginatedListResult<GetBlogsResponseViewModel>> GetBlogs(GetBlogsRequestViewModel viewModel)
         {
-            return await _context.Blogs
-                .Where(b => b.Rating > rating)
+            var query = _context.Blogs
+                .Where(b => b.Rating > viewModel.Rating)
                 .OrderBy(b => b.Url)
-                .Select(x => new GetBlogsViewModel
+                .Select(x => new GetBlogsResponseViewModel
                 {
                     Url = x.Url,
                     Rating = x.Rating
-                })
-                .ToListAsync();
+                });
+            
+            return await query.ToPaginatedListResultForViewModelAsync(viewModel);
         }
 
-        public async Task<List<GetPostsViewModel>> GetPosts(int blogId)
+        public async Task<PaginatedListResult<GetPostsResultViewModel>> GetPosts(GetPostsRequestViewModel viewModel)
         {
-            return await _context.Posts
-                .Where(x => x.BlogId == blogId)
-                .Select(x => new GetPostsViewModel
+            var query = _context.Posts
+                .Where(x => x.BlogId == viewModel.BlogId)
+                .Select(x => new GetPostsResultViewModel
                 {
                     PostId = x.PostId,
                     Title = x.Title,
                     Content = x.Content
-                })
-                .ToListAsync();
+                });
+            
+            return await query.ToPaginatedListResultForViewModelAsync(viewModel);
         }
 
-        public async Task AddBlog(string url, int rating)
+        public async Task AddBlog(AddBlogRequestViewModel viewModel)
         {
-            await _context.Blogs.AddAsync(new Blog { Url = url, Rating = rating });
+            await _context.Blogs.AddAsync(new Blog { Url = viewModel.Url, Rating = viewModel.Rating });
             await _context.SaveChangesAsync();
         }
 
-        public async Task AddPost(string title, string content, int blogId)
+        public async Task AddPost(AddPostRequestViewModel viewModel)
         {
-            await _context.Posts.AddAsync(new Post { Title = title, Content = content, BlogId = blogId });
+            await _context.Posts.AddAsync(new Post { Title = viewModel.Title, Content = viewModel.Content, BlogId = viewModel.BlogId });
             await _context.SaveChangesAsync();
         }
     }

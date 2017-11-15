@@ -1,17 +1,18 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using Idontknow.Domain.ViewModels.Blog;
+using Idontknow.Domain.ViewModels.Result;
+using Idontknow.Domain.ViewModels.Service.Blog;
 
 namespace Idontknow.DAL.Domain.Repository
 {
     public interface IBlogRepository
     {
-        Task<List<GetBlogsViewModel>> GetBlogs(int rating);
+        Task<PaginatedListResult<GetBlogsResponseViewModel>> GetBlogs(GetBlogsRequestViewModel viewModel);
         
-        Task<List<GetPostsViewModel>> GetPosts(int blogId);
+        Task<PaginatedListResult<GetPostsResultViewModel>> GetPosts(GetPostsRequestViewModel viewModel);
 
-        Task AddBlog(string url, int rating);
+        Task AddBlog(AddBlogRequestViewModel viewModel);
         
-        Task AddPost(string title, string content, int blogId);
+        Task AddPost(AddPostRequestViewModel viewModel);
     }
 }

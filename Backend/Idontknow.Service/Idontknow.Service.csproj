@@ -9,4 +9,7 @@
       <Name>Idontknow.Domain</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="FluentValidation" Version="7.3.0-beta1" />
+  </ItemGroup>
 </Project>

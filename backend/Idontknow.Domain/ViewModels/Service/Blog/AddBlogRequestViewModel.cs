@@ -1,6 +1,6 @@
-﻿namespace Idontknow.Domain.ViewModels.Blog
+﻿namespace Idontknow.Domain.ViewModels.Service.Blog
 {
-    public class GetBlogsViewModel
+    public class AddBlogRequestViewModel
     {
         public string Url { get; set; }
         public int Rating { get; set; }

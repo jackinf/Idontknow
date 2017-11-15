@@ -1,17 +1,24 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using Idontknow.Domain.ViewModels.Blog;
+using Idontknow.Domain.ViewModels.Result;
+using Idontknow.Domain.ViewModels.Service.Blog;
 
 namespace Idontknow.Domain.Service
 {
     public interface IBlogService
     {
-        Task<bool> CreateBlog(string url, int rating);
+        //
+        // Blogs
+        
+        Task<ServiceResult<bool>> CreateBlog(AddBlogRequestViewModel viewModel);
 
-        Task<bool> CreatePost(string title, string content, int blogId);
+        Task<ServiceResult<List<GetBlogsResponseViewModel>>> GetBlogs(GetBlogsRequestViewModel viewModel);
 
-        Task<List<GetBlogsViewModel>> GetBlogs(int rating);
-
-        Task<List<GetPostsViewModel>> GetPosts(int blogId);
+        //
+        // Posts
+        
+        Task<ServiceResult<List<GetPostsResultViewModel>>> GetPosts(GetPostsRequestViewModel viewModel);
+        
+        Task<ServiceResult<bool>> CreatePost(AddPostRequestViewModel viewModel);
     }
 }

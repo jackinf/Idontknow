@@ -1,4 +1,4 @@
-﻿namespace Idontknow.Domain.ViewModels.Account
+﻿namespace Idontknow.Domain.ViewModels.Service.Account
 {
     public class RegisterViewModel
     {

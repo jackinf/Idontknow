@@ -1,5 +1,6 @@
 ﻿using AspNet.Security.OAuth.Validation;
 using Idontknow.DAL.Domain.Repository;
+using Idontknow.Domain.Service;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -9,24 +10,24 @@ namespace Idontknow.Api.Controllers
     [Route("api/blog")]
     public class BlogController : Controller
     {
-        private readonly IBlogRepository _repository;
+        private readonly IBlogService _service;
 
-        public BlogController(IBlogRepository repository)
+        public BlogController(IBlogService service)
         {
-            _repository = repository;
+            _service = service;
         }
         
         [HttpGet]
-        public IActionResult GetAll(int rating)
+        public IActionResult GetBlogs(int rating)
         {
-            var blogs = _repository.GetAll(rating);
+            var blogs = _service.GetBlogs(rating);
             return Ok(blogs);
         }
         
         [HttpPost]
-        public IActionResult Add([FromBody] string url)
+        public IActionResult Add([FromBody] string url, [FromBody] int rating)
         {
-            _repository.Add(url);
+            _service.CreateBlog(url, rating);
             return Ok();
         }
     }

@@ -42,6 +42,8 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Idontknow.DAL\Idontknow.DAL.csproj" />
+    <ProjectReference Include="..\Idontknow.Domain\Idontknow.Domain.csproj" />
+    <ProjectReference Include="..\Idontknow.Service\Idontknow.Service.csproj" />
   </ItemGroup>
   <ItemGroup>
     <Content Update="appsettings.json">

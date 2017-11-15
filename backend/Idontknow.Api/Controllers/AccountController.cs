@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
-using Idontknow.Api.ViewModels.Account;
 using Idontknow.DAL;
+using Idontknow.Domain.ViewModels.Account;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;

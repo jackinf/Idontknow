@@ -3,11 +3,7 @@
     <TargetFramework>netstandard2.0</TargetFramework>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.Identity" Version="2.0.0" />
-    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="2.0.0" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="2.0.0" />
-  </ItemGroup>
-  <ItemGroup>
+    <ProjectReference Include="..\Idontknow.DAL\Idontknow.DAL.csproj" />
     <ProjectReference Include="..\Idontknow.Domain\Idontknow.Domain.csproj">
       <Project>{C7331FAB-33A3-4D7C-9B6E-1D300553C91C}</Project>
       <Name>Idontknow.Domain</Name>

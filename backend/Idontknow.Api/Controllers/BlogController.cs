@@ -14,7 +14,9 @@ namespace Idontknow.Api.Controllers
     {
         private readonly IBloggingService _service;
 
-        public BlogController(IBloggingService service, ILogger logger) : base(logger)
+        public BlogController(
+            ILogger<BlogController> logger, 
+            IBloggingService service) : base(logger)
         {
             _service = service;
         }

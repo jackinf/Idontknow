@@ -11,18 +11,21 @@ using Microsoft.Extensions.Logging;
 namespace Idontknow.Api.Controllers
 {
     [Authorize]
+    [Route("Account")]
     public class AccountController : BaseController
     {
         private readonly UserManager<ApplicationUser> _userManager;
 
-        public AccountController(ILogger logger, UserManager<ApplicationUser> userManager): base(logger)
+        public AccountController(
+            ILogger<AccountController> logger, 
+            UserManager<ApplicationUser> userManager): base(logger)
         {
             _userManager = userManager;
         }
 
         //
         // POST: /Account/Register
-        [HttpPost]
+        [HttpPost("Register")]
         [AllowAnonymous]
         public async Task<IActionResult> Register([FromBody] RegisterViewModel model)
         {

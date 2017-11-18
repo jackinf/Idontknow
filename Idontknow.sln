@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Idontknow.Domain", "backend
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Idontknow.Service", "backend\Idontknow.Service\Idontknow.Service.csproj", "{A8A03E09-B6DB-4ADF-A27A-20D6676D5EAA}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Idontknow.IntegrationTests", "backend\Idontknow.IntegrationTests\Idontknow.IntegrationTests.csproj", "{14A6D965-3346-4C05-8F3A-671CC482E5AD}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -83,6 +85,18 @@ Global
 		{A8A03E09-B6DB-4ADF-A27A-20D6676D5EAA}.Release|x64.Build.0 = Release|x64
 		{A8A03E09-B6DB-4ADF-A27A-20D6676D5EAA}.Release|x86.ActiveCfg = Release|x86
 		{A8A03E09-B6DB-4ADF-A27A-20D6676D5EAA}.Release|x86.Build.0 = Release|x86
+		{14A6D965-3346-4C05-8F3A-671CC482E5AD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{14A6D965-3346-4C05-8F3A-671CC482E5AD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{14A6D965-3346-4C05-8F3A-671CC482E5AD}.Debug|x64.ActiveCfg = Debug|x64
+		{14A6D965-3346-4C05-8F3A-671CC482E5AD}.Debug|x64.Build.0 = Debug|x64
+		{14A6D965-3346-4C05-8F3A-671CC482E5AD}.Debug|x86.ActiveCfg = Debug|x86
+		{14A6D965-3346-4C05-8F3A-671CC482E5AD}.Debug|x86.Build.0 = Debug|x86
+		{14A6D965-3346-4C05-8F3A-671CC482E5AD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{14A6D965-3346-4C05-8F3A-671CC482E5AD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{14A6D965-3346-4C05-8F3A-671CC482E5AD}.Release|x64.ActiveCfg = Release|x64
+		{14A6D965-3346-4C05-8F3A-671CC482E5AD}.Release|x64.Build.0 = Release|x64
+		{14A6D965-3346-4C05-8F3A-671CC482E5AD}.Release|x86.ActiveCfg = Release|x86
+		{14A6D965-3346-4C05-8F3A-671CC482E5AD}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

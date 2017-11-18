@@ -25,9 +25,9 @@ namespace Idontknow.Domain.Factory
             return result;
         }
 
-        public static ServiceResult<List<TPayload>> SuccessWithPaginator<TPayload>(PaginatedListResult<TPayload> paginatedListResult, string message = "")
+        public static ListServiceResult<List<TPayload>> SuccessWithPaginator<TPayload>(PaginatedListResult<TPayload> paginatedListResult, string message = "")
         {
-            var result = new ServiceResult<List<TPayload>>();
+            var result = new ListServiceResult<List<TPayload>>();
             result.IsSuccessful = true;
             result.Payload = paginatedListResult.ContextObjects;
             result.Pages = paginatedListResult.Pages;

@@ -1,6 +1,12 @@
 ﻿using System;
 using AspNet.Security.OpenIdConnect.Primitives;
 using Idontknow.DAL;
+using Idontknow.DAL.Repository;
+using Idontknow.DAL.UnitOfWork;
+using Idontknow.Domain.Repository;
+using Idontknow.Domain.Service;
+using Idontknow.Domain.UnitOfWork;
+using Idontknow.Service;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
@@ -123,6 +129,13 @@ namespace Idontknow.Api
             //         options.ClientSecret = "875sqd4s5d748z78z7ds1ff8zz8814ff88ed8ea4z4zzd";
             //         options.RequireHttpsMetadata = false;
             //     });
+
+            services.AddTransient<IBloggingService, BloggingService>();
+            
+            services.AddTransient<IBlogRepository, BlogRepository>();
+            services.AddTransient<IPostRepository, PostRepository>();
+            
+            services.AddTransient<IBloggingUnitOfWork, BloggingUnitOfWork>();
             
             // Register the Swagger generator, defining one or more Swagger documents
             services.AddSwaggerGen(c =>
@@ -143,7 +156,8 @@ namespace Idontknow.Api
             
             app.UseAuthentication();
 
-            app.UseMvc();
+            // TODO: Don't allow everything in production 
+            app.UseCors(b => b.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin().AllowCredentials());
             
             app.UseMvcWithDefaultRoute();
             
@@ -157,6 +171,15 @@ namespace Idontknow.Api
             {
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
             });
+            
+            //Create Database
+            using (var serviceScope = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>().CreateScope())
+            {
+                var dbContext = serviceScope.ServiceProvider.GetService<ApplicationDbContext>();
+                
+                // run Migrations
+                dbContext.Database.Migrate();
+            }
             
             InitializeRoles(roleManager);
         }

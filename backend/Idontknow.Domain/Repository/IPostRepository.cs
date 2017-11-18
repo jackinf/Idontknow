@@ -6,9 +6,9 @@ namespace Idontknow.Domain.Repository
 {
     public interface IPostRepository
     {
-        Task<PaginatedListResult<GetPostsResultViewModel>> GetPosts(GetPostsRequestViewModel viewModel);
+        Task<PaginatedListResult<GetPostsResultViewModel>> GetPosts(int blogId, GetPostsRequestViewModel viewModel);
         
-        Task AddPost(AddPostRequestViewModel viewModel);
+        Task AddPost(int blogId, AddPostRequestViewModel viewModel);
 
     }
 }

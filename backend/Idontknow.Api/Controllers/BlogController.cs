@@ -9,7 +9,7 @@ using Microsoft.Extensions.Logging;
 namespace Idontknow.Api.Controllers
 {
     [Authorize(AuthenticationSchemes = OAuthValidationDefaults.AuthenticationScheme)]
-    [Route("api/blog")]
+    [Route("api/blogs")]
     public class BlogController : BaseController
     {
         private readonly IBloggingService _service;
@@ -19,12 +19,26 @@ namespace Idontknow.Api.Controllers
             _service = service;
         }
         
-        [HttpGet("get-blogs")]
-        public async Task<IActionResult> GetBlogs(GetBlogsRequestViewModel viewModel) 
+        //
+        // Blogs
+        
+        [HttpGet]
+        public async Task<IActionResult> GetBlogs([FromQuery] GetBlogsRequestViewModel viewModel) 
             => await HandleResultAsync(() => _service.GetBlogs(viewModel));
 
-        [HttpPost("add-blogs")]
-        public async Task<IActionResult> AddBlog(AddBlogRequestViewModel viewModel)
+        [HttpPost]
+        public async Task<IActionResult> AddBlog([FromBody] AddBlogRequestViewModel viewModel)
             => await HandleResultAsync(() => _service.CreateBlog(viewModel));
+        
+        //
+        // Posts
+        
+        [HttpGet("{blogId:int}")]
+        public async Task<IActionResult> GetPosts([FromQuery] int blogId, [FromQuery] GetPostsRequestViewModel viewModel) 
+            => await HandleResultAsync(() => _service.GetPosts(blogId, viewModel));
+
+        [HttpPost("{blogId:int}")]
+        public async Task<IActionResult> AddPost([FromQuery] int blogId, [FromBody] AddPostRequestViewModel viewModel)
+            => await HandleResultAsync(() => _service.CreatePost(blogId, viewModel));
     }
 }

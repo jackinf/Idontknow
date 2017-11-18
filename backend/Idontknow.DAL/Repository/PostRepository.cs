@@ -17,10 +17,10 @@ namespace Idontknow.DAL.Repository
             _context = context;
         }
         
-        public async Task<PaginatedListResult<GetPostsResultViewModel>> GetPosts(GetPostsRequestViewModel viewModel)
+        public async Task<PaginatedListResult<GetPostsResultViewModel>> GetPosts(int blogId, GetPostsRequestViewModel viewModel)
         {
             var query = _context.Posts
-                .Where(x => x.BlogId == viewModel.BlogId)
+                .Where(x => x.BlogId == blogId)
                 .Select(x => new GetPostsResultViewModel
                 {
                     PostId = x.PostId,
@@ -31,9 +31,9 @@ namespace Idontknow.DAL.Repository
             return await query.ToPaginatedListResultForViewModelAsync(viewModel);
         }
         
-        public async Task AddPost(AddPostRequestViewModel viewModel)
+        public async Task AddPost(int blogId, AddPostRequestViewModel viewModel)
         {
-            await _context.Posts.AddAsync(new Post { Title = viewModel.Title, Content = viewModel.Content, BlogId = viewModel.BlogId });
+            await _context.Posts.AddAsync(new Post { Title = viewModel.Title, Content = viewModel.Content, BlogId = blogId });
             await _context.SaveChangesAsync();
         }
     }

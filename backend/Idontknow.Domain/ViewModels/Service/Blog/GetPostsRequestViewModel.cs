@@ -2,6 +2,5 @@
 {
     public class GetPostsRequestViewModel : PaginatedSearchBaseOptionsViewModel
     {
-        public int BlogId { get; set; }
     }
 }

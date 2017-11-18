@@ -39,15 +39,15 @@ namespace Idontknow.Service
         //
         // Posts
         
-        public async Task<ServiceResult<List<GetPostsResultViewModel>>> GetPosts(GetPostsRequestViewModel viewModel)
+        public async Task<ServiceResult<List<GetPostsResultViewModel>>> GetPosts(int blogId, GetPostsRequestViewModel viewModel)
         {
-            var posts = await _unitOfWork.PostRepository.GetPosts(viewModel);
+            var posts = await _unitOfWork.PostRepository.GetPosts(blogId, viewModel);
             return ServiceResultFactory.SuccessWithPaginator(posts);
         }
 
-        public async Task<ServiceResult<bool>> CreatePost(AddPostRequestViewModel viewModel)
+        public async Task<ServiceResult<bool>> CreatePost(int blogId, AddPostRequestViewModel viewModel)
         {
-            await _unitOfWork.PostRepository.AddPost(viewModel);
+            await _unitOfWork.PostRepository.AddPost(blogId, viewModel);
             return ServiceResultFactory.Success(true);
         }
     }

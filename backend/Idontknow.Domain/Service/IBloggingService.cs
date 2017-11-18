@@ -17,8 +17,8 @@ namespace Idontknow.Domain.Service
         //
         // Posts
         
-        Task<ServiceResult<List<GetPostsResultViewModel>>> GetPosts(GetPostsRequestViewModel viewModel);
+        Task<ServiceResult<List<GetPostsResultViewModel>>> GetPosts(int blogId, GetPostsRequestViewModel viewModel);
         
-        Task<ServiceResult<bool>> CreatePost(AddPostRequestViewModel viewModel);
+        Task<ServiceResult<bool>> CreatePost(int blogId, AddPostRequestViewModel viewModel);
     }
 }

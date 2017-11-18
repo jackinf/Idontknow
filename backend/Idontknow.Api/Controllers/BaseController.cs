@@ -35,6 +35,7 @@ namespace Idontknow.Api.Controllers
 
                 if (result.IsSuccessful)
                     return Ok(result);
+                
                 if (result.StatusCode != HttpStatusCode.BadRequest && result.StatusCode != 0)
                     return ReturnErrorResult(result.Validation, result.StatusCode);
 
@@ -75,20 +76,21 @@ namespace Idontknow.Api.Controllers
                 return BadRequest();
             }
 
-            if (statusCode == HttpStatusCode.BadRequest) 
-                return BadRequest(ModelState);
-            
+            if (statusCode == HttpStatusCode.BadRequest)
             {
-                var error = new
-                {
-                    Message = "The request is invalid.",
-                    ModelState = new
-                    {
-                        error = ModelState.Values.SelectMany(e => e.Errors.Select(er => er.ErrorMessage))
-                    }
-                };
-                return StatusCode((int)HttpStatusCode.BadRequest, error);
+                return BadRequest(ModelState);                
             }
+            
+            var invalidRequestError = new
+            {
+                Message = "The request is invalid.",
+                ModelState = new
+                {
+                    error = ModelState.Values.SelectMany(e => e.Errors.Select(er => er.ErrorMessage))
+                }
+            };
+            
+            return StatusCode((int)HttpStatusCode.BadRequest, invalidRequestError);
         }
     }
 }

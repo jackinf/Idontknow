@@ -7,9 +7,11 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Swashbuckle.AspNetCore.Swagger;
 
 namespace Idontknow.Api
 {
+    // ReSharper disable once ClassNeverInstantiated.Global - initialized on startup (magically)
     public class Startup
     {
         public Startup(IConfiguration configuration)
@@ -17,8 +19,9 @@ namespace Idontknow.Api
             Configuration = configuration;
         }
         
-        public IConfiguration Configuration { get; }
+        public IConfiguration Configuration { get; } // TODO: configurations should be take from here
         
+        // ReSharper disable once UnusedMember.Global - executed on application startup
         public void ConfigureServices(IServiceCollection services)
         {
             // TODO: use IConfiguration
@@ -120,8 +123,15 @@ namespace Idontknow.Api
             //         options.ClientSecret = "875sqd4s5d748z78z7ds1ff8zz8814ff88ed8ea4z4zzd";
             //         options.RequireHttpsMetadata = false;
             //     });
+            
+            // Register the Swagger generator, defining one or more Swagger documents
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new Info { Title = "Idontknow", Version = "v1" });
+            });
         }
 
+        // ReSharper disable once UnusedMember.Global - Executed on application startup
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, RoleManager<IdentityRole> roleManager)
         {
             if (env.IsDevelopment())
@@ -129,11 +139,24 @@ namespace Idontknow.Api
                 app.UseDeveloperExceptionPage();                
             }
             
+            app.UseStaticFiles();
+            
             app.UseAuthentication();
 
+            app.UseMvc();
+            
             app.UseMvcWithDefaultRoute();
+            
+//            app.UseWelcomePage(); <-- Don't use this as it breaks swagger
+            
+            // Enable middleware to serve generated Swagger as a JSON endpoint.
+            app.UseSwagger();
 
-            app.UseWelcomePage();
+            // Enable middleware to serve swagger-ui (HTML, JS, CSS, etc.), specifying the Swagger JSON endpoint.
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
+            });
             
             InitializeRoles(roleManager);
         }

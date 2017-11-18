@@ -1,5 +1,5 @@
-import React, { Component } from 'react'
-import { Button } from 'antd'
+import * as React from 'react';
+import { Button } from 'antd';
 
 interface CounterProps {
     value: string;
@@ -7,7 +7,7 @@ interface CounterProps {
     onDecrement: any;
 }
 
-class Counter extends Component<CounterProps> {
+class Counter extends React.Component<CounterProps> {
     render() {
         const { value, onIncrement, onDecrement } = this.props;
         return (
@@ -22,11 +22,5 @@ class Counter extends Component<CounterProps> {
         )
     }
 }
-
-// Counter.propTypes = {
-//     value: PropTypes.number.isRequired,
-//     onIncrement: PropTypes.func.isRequired,
-//     onDecrement: PropTypes.func.isRequired
-// };
 
 export default Counter

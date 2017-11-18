@@ -1,20 +1,21 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using Idontknow.DAL.Domain.Repository;
 using Idontknow.Domain.Factory;
+using Idontknow.Domain.Repository;
 using Idontknow.Domain.Service;
+using Idontknow.Domain.UnitOfWork;
 using Idontknow.Domain.ViewModels.Result;
 using Idontknow.Domain.ViewModels.Service.Blog;
 
 namespace Idontknow.Service
 {
-    public class BlogService : IBlogService
+    public class BloggingService : IBloggingService
     {
-        private readonly IBlogRepository _repository;
+        private readonly IBloggingUnitOfWork _unitOfWork;
 
-        public BlogService(IBlogRepository repository)
+        public BloggingService(IBloggingUnitOfWork unitOfWork)
         {
-            _repository = repository;
+            _unitOfWork = unitOfWork;
         }
         
         //
@@ -22,13 +23,16 @@ namespace Idontknow.Service
         
         public async Task<ServiceResult<List<GetBlogsResponseViewModel>>> GetBlogs(GetBlogsRequestViewModel viewModel)
         {
-            var paginatedListResult = await _repository.GetBlogs(viewModel);
+            var paginatedListResult = await _unitOfWork.BlogRepository.GetBlogs(viewModel);
             return ServiceResultFactory.SuccessWithPaginator(paginatedListResult);
         }
         
         public async Task<ServiceResult<bool>> CreateBlog(AddBlogRequestViewModel viewModel)
         {
-            await _repository.AddBlog(viewModel);
+            await _unitOfWork.BeginTransaction();
+            await _unitOfWork.BlogRepository.AddBlog(viewModel);
+            await _unitOfWork.SaveChangesAsync();
+            _unitOfWork.CommitTransaction();
             return ServiceResultFactory.Success(true);
         }
         
@@ -37,13 +41,13 @@ namespace Idontknow.Service
         
         public async Task<ServiceResult<List<GetPostsResultViewModel>>> GetPosts(GetPostsRequestViewModel viewModel)
         {
-            var posts = await _repository.GetPosts(viewModel);
+            var posts = await _unitOfWork.PostRepository.GetPosts(viewModel);
             return ServiceResultFactory.SuccessWithPaginator(posts);
         }
 
         public async Task<ServiceResult<bool>> CreatePost(AddPostRequestViewModel viewModel)
         {
-            await _repository.AddPost(viewModel);
+            await _unitOfWork.PostRepository.AddPost(viewModel);
             return ServiceResultFactory.Success(true);
         }
     }

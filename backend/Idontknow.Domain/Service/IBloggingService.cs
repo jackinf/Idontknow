@@ -5,7 +5,7 @@ using Idontknow.Domain.ViewModels.Service.Blog;
 
 namespace Idontknow.Domain.Service
 {
-    public interface IBlogService
+    public interface IBloggingService
     {
         //
         // Blogs

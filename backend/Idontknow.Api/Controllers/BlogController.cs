@@ -12,9 +12,9 @@ namespace Idontknow.Api.Controllers
     [Route("api/blog")]
     public class BlogController : BaseController
     {
-        private readonly IBlogService _service;
+        private readonly IBloggingService _service;
 
-        public BlogController(IBlogService service, ILogger logger) : base(logger)
+        public BlogController(IBloggingService service, ILogger logger) : base(logger)
         {
             _service = service;
         }

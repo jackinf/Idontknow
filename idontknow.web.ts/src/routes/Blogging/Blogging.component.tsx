@@ -1,38 +1,25 @@
 import * as React from 'react';
+import {BloggingReducerState} from "./Blogging.reducer";
+import {Table} from "antd";
 
-export interface BloggingComponentProps {
-    initialValue?: number;
+interface BloggingComponentProps extends BloggingReducerState {}
+
+class BloggingComponent extends React.Component<BloggingComponentProps> {
+    render() {
+        const { dataSource } = this.props;
+        const columns = [
+            {title: 'Title', dataIndex: 'title', key: 'title'},
+            {title: 'Rating', dataIndex: 'rating', key: 'rating'}
+        ];
+
+        return (
+            <div>
+                <h2>Blogging</h2>
+
+                <Table dataSource={dataSource} columns={columns} />
+            </div>
+        )
+    }
 }
 
-interface DefaultProps {
-    initialValue: number;
-}
-
-type PropsWithDefaults = BloggingComponentProps & DefaultProps;
-
-const BloggingComponent: React.ComponentClass<BloggingComponentProps> =
-    class extends React.Component<PropsWithDefaults> {
-        static defaultProps: DefaultProps = {
-            initialValue: 0
-        };
-
-        demo = () => {
-            console.log("demo");
-        };
-
-        render() {
-            const {demo} = this;
-            const {initialValue} = this.props;
-
-            return (
-                <div>
-                    {initialValue}
-                    <button type="button" onClick={demo}>
-                        Demo
-                    </button>
-                </div>
-            );
-        }
-    };
-
-export default BloggingComponent;
+export default BloggingComponent

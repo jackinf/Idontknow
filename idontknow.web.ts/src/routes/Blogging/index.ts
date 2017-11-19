@@ -1,7 +1,9 @@
 import {injectAsyncReducer} from '../../config/store';
-import CounterReducer from './Blog.reducer';
+import BloggingReducer from './Blogging.reducer';
 
-export default (store: any): any => import('./Blog.container').then((component) => {
-    injectAsyncReducer(store, 'counter', CounterReducer);
+export const REDUCER_KEY__BLOGGING = "blogging";
+
+export default (store: any): any => import('./Blogging.container').then((component) => {
+    injectAsyncReducer(store, REDUCER_KEY__BLOGGING, BloggingReducer);
     return component;
 });

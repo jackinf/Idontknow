@@ -1,7 +1,11 @@
 import * as React from 'react';
 
-export default class HomeComponent extends React.Component<any> { // TODO: fix any
+interface HomeComponentProps {}
+
+export default class HomeComponent extends React.Component<HomeComponentProps> {
     render()  {
-        return (<div>Home</div>);
+        return (<div>
+            <h2>Welcome to the Idontknow page!</h2>
+        </div>);
     }
 }

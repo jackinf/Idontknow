@@ -1,29 +1,44 @@
 import * as React from "react";
 import {reduxForm, Field, InjectedFormProps} from "redux-form";
 import {Button} from "antd";
-// import {initialize} from "redux-form";
 
-interface SimpleDemoFormProps {
-    foo: string;
-    test: string;
+export interface SimpleDemoStateProps {
+    haha: string;
+}
+export interface SimpleDemoDispatchProps {
+    submitForm: Function;
 }
 
-const SimpleDemoFormName: string = 'simpleDemoForm';
-class SimpleDemoForm extends React.Component<InjectedFormProps<SimpleDemoFormProps>> {
+export interface FormProps {
+    foo: string;
+    bar: string;
+}
+
+export const SimpleDemoFormName: string = 'simpleDemoForm';
+class SimpleDemoForm extends React.Component<SimpleDemoStateProps & SimpleDemoDispatchProps & InjectedFormProps<FormProps>> {
     resetForm = () => {
-        this.props.initialize({test: "test123"});
-        // initialize(SimpleDemoFormName, {test: "test123"}); // this is alternative way
+        this.props.initialize({foo: "test123"});
+        // initialize(SimpleDemoFormName, {foo: "test123"}); // this is alternative way
+    };
+
+    submitForm = () => {
+        this.props.submitForm();
     };
 
     render() {
-        const {} = this.props;
+        const {haha} = this.props;
 
         return (
             <div>
+                <h2>{haha}</h2>
                 Simple demo form
 
                 <Button onClick={this.resetForm}>
                     Reset form
+                </Button>
+
+                <Button onClick={this.submitForm}>
+                    Submit form
                 </Button>
 
                 <Field
@@ -32,14 +47,15 @@ class SimpleDemoForm extends React.Component<InjectedFormProps<SimpleDemoFormPro
                     placeholder='Foo bar'
                 />
                 <Field
-                    name='test'
+                    name='bar'
                     component='input'
                     placeholder='Foo bar'
                 />
 
             </div>
-        )
+        );
     }
 }
+
 
 export default reduxForm({form: SimpleDemoFormName })(SimpleDemoForm);

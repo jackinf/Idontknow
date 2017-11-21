@@ -1,13 +1,19 @@
 import {connect} from 'react-redux';
-import DemoFormComponent from './DemoForm.component';
+import DemoFormComponent, {SimpleDemoDispatchProps, SimpleDemoStateProps} from './DemoForm.component';
+import submitForm from "./actions/DemoForm.submit";
+import {DemoFormState} from "./DemoForm.reducer";
+import {REDUCER_KEY__DEMO_FORM} from "./index";
 
 const mapDispatchToProps = {
-    onIncrement: () => (dispatch: any) => dispatch({ type: 'INCREMENT' }),
-    onDecrement: () => (dispatch: any) => dispatch({ type: 'DECREMENT' }),
+    submitForm
 };
 
-const mapStateToProps = (state: any) => ({
+const mapStateToProps = (state: any): SimpleDemoStateProps => {
+    const currentState = state[REDUCER_KEY__DEMO_FORM] as DemoFormState;
 
-});
+    return {
+        haha: currentState.haha
+    }
+};
 
-export default connect(mapStateToProps, mapDispatchToProps)(DemoFormComponent)
+export default connect<SimpleDemoStateProps, SimpleDemoDispatchProps, any>(mapStateToProps, mapDispatchToProps)(DemoFormComponent)

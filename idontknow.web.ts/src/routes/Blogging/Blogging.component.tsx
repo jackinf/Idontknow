@@ -1,58 +1,52 @@
 import * as React from 'react';
-import {BloggingReducerState} from "./Blogging.models";
+import {BloggingReducerState, BlogModel} from "./Blogging.models";
 import {Table} from "antd";
 import {PaginationProps} from "antd/lib/pagination";
-import axios, {AxiosResponse} from 'axios';
-import {RandomUserMeResponse, TestPersonModel} from "./Blogging.models";
+import Button from "antd/lib/button/button";
+import Modal from "antd/lib/modal/Modal";
+import BlogCreate from "./BlogCreate";
 
-class TestPersonTable extends Table<TestPersonModel> {}
+class TestPersonTable extends Table<BlogModel> {}
 
-interface BloggingComponentProps extends BloggingReducerState {}
+interface BloggingComponentProps extends BloggingReducerState {
+    submitBlogCreateForm: Function
+}
 interface BloggingComponentState {
-    data: TestPersonModel[];
     pagination: PaginationProps;
     loading: boolean;
+
+    createInProgress: boolean;
+    editInProgress: boolean;
+    deleteInProgress: boolean;
+
+    confirmLoading: boolean;
 }
 
-// const columns1 = [
-//     {title: 'Title', dataIndex: 'title', key: 'title'},
-//     {title: 'Rating', dataIndex: 'rating', key: 'rating'}
-// ];
-
-
-
-const columns = [{
-    title: 'Name',
-    dataIndex: 'name',
-    sorter: true,
-    render: (name: {first: string, last: string}) => `${name.first} ${name.last}`,
-    width: '20%',
-}, {
-    title: 'Gender',
-    dataIndex: 'gender',
-    filters: [
-        { text: 'Male', value: 'male' },
-        { text: 'Female', value: 'female' },
-    ],
-    width: '20%',
-}, {
-    title: 'Email',
-    dataIndex: 'email',
-}];
+const columns = [
+    {title: 'Title', dataIndex: 'title', key: 'title'},
+    {title: 'Rating', dataIndex: 'rating', key: 'rating'}
+];
 
 class BloggingComponent extends React.Component<BloggingComponentProps, BloggingComponentState> {
+
+    // TODO: to store
     state = {
         data: [],
-        pagination: { total: 0, current: 0 },
-        loading: false
+        pagination: { total: 0, current: 0, pageSize: 25 },
+        loading: false,
+
+        createInProgress: false,
+        editInProgress: false,
+        deleteInProgress: false,
+
+        confirmLoading: false
     };
 
+    // TODO: To actions, I think...
     handleTableChange = (pagination: PaginationProps, filters: string[], sorter: { field: string, order: string }) => {
         const pager = { ...this.state.pagination };
         pager.current = pagination.current || 0;
-        this.setState({
-            pagination: pager,
-        });
+        this.setState({pagination: pager});
         this.fetch({
             results: pagination.pageSize,
             page: pagination.current,
@@ -62,27 +56,36 @@ class BloggingComponent extends React.Component<BloggingComponentProps, Blogging
         });
     };
 
+    // TODO: to actions and implement request
     fetch = (params = {}) => {
         console.log('params:', params);
         this.setState({ loading: true });
-        axios.get<RandomUserMeResponse>('https://randomuser.me/api', {
-            method: 'get',
-            params: {
-                results: 10,
-                ...params,
-            },
-            responseType: 'json',
-        }).then((value: AxiosResponse<RandomUserMeResponse>) => {
-            const pagination = { ...this.state.pagination };
-            // Read total count from server
-            // pagination.total = data.totalCount;
-            pagination.total = 200;
+        setTimeout(() => {
             this.setState({
                 loading: false,
-                data: value.data.results,
-                pagination,
+                pagination: {total: 200, ...this.state.pagination},
             });
+        }, 1000);
+    };
+
+    // TODO: to actions
+    showCreateNewModal = () => {
+        this.setState({createInProgress: true});
+    };
+
+    // TODO: to actions
+    handleCreateNewConfirm = () => {
+        this.setState({confirmLoading: true});
+        this.props.submitBlogCreateForm(() => {
+            this.setState({createInProgress: false, confirmLoading: false});
+            this.fetch();
         });
+    };
+
+    // TODO: to actions
+    handleCreateNewCancel = () => {
+        console.log('Clicked cancel button');
+        this.setState({createInProgress: false});
     };
 
     componentDidMount() {
@@ -90,23 +93,32 @@ class BloggingComponent extends React.Component<BloggingComponentProps, Blogging
     }
 
     render() {
-        // const { dataSource } = this.props;
-        const { data, pagination, loading } = this.state;
+        const { data } = this.props;
+        const { pagination, loading, createInProgress, confirmLoading } = this.state;
 
         return (
             <div>
                 <h2>Blogging</h2>
 
-                {/*<Table dataSource={dataSource} columns={columns} />*/}
+                <Button type="primary" onClick={this.showCreateNewModal}>Add new...</Button>
 
                 <TestPersonTable
                     columns={columns}
-                    rowKey={record => record.registered}
+                    rowKey={record => record.key}
                     dataSource={data}
                     pagination={pagination}
                     loading={loading}
                     onChange={this.handleTableChange}
                 />
+
+                <Modal title="Create new blog"
+                       visible={createInProgress}
+                       onOk={this.handleCreateNewConfirm}
+                       confirmLoading={confirmLoading}
+                       onCancel={this.handleCreateNewCancel}
+                >
+                    <BlogCreate />
+                </Modal>
 
             </div>
         )

@@ -17,6 +17,7 @@ import {
     BloggingRoute,
     CounterRoute,
     DemoFormRoute,
+    DemoTableRoute,
     DemoPrivatePageRoute,
 } from "./routes";
 import asyncComponent from './components/asyncComponent';
@@ -47,8 +48,9 @@ class AppComponent extends React.Component {
                                 <Menu.Item key="2"><Link to="/blogging">Blogging</Link></Menu.Item>
                                 <Menu.Item key="3"><Link to="/counter">Counter</Link></Menu.Item>
                                 <Menu.Item key="4"><Link to="/demo-form">Demo Form</Link></Menu.Item>
-                                <Menu.Item key="5"><Link to="/login">Login</Link></Menu.Item>
-                                <Menu.Item key="6"><Link to="/protected">Protected</Link></Menu.Item>
+                                <Menu.Item key="5"><Link to="/demo-table">Demo Table</Link></Menu.Item>
+                                <Menu.Item key="6"><Link to="/login">Login</Link></Menu.Item>
+                                <Menu.Item key="7"><Link to="/protected">Protected</Link></Menu.Item>
                                 <Menu.Item disabled={true} style={{"float": "right"}}>
                                     <LogoutComponent />
                                 </Menu.Item>
@@ -61,6 +63,7 @@ class AppComponent extends React.Component {
                                 <Route path="/blogging" component={asyncComponent(() =>  BloggingRoute(store))}/>
                                 <Route path="/counter" component={asyncComponent(() =>  CounterRoute(store))}/>
                                 <Route path="/demo-form" component={asyncComponent(() =>  DemoFormRoute(store))}/>
+                                <Route path="/demo-table" component={asyncComponent(() =>  DemoTableRoute(store))}/>
                                 <Route path="/login" component={LoginRoute}/>
                                 <PrivateRoute path="/protected" component={DemoPrivatePageRoute}/>
                             </div>

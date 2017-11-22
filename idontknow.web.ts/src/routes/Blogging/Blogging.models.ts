@@ -1,12 +1,5 @@
 export interface RandomUserMeResponse {
-    results: TestPersonModel[];
-}
-
-export interface TestPersonModel {
-    name: { first: string; last: string; title: string };
-    gender: string;
-    email: string;
-    registered: string;
+    results: BlogModel[];
 }
 
 export class BlogModel {
@@ -16,6 +9,6 @@ export class BlogModel {
 }
 
 export interface BloggingReducerState {
-    dataSource: Array<BlogModel>;
+    data: BlogModel[];
     count: number;
 }

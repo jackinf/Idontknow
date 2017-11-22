@@ -10,17 +10,24 @@ import { Provider } from 'react-redux';
 import ReduxThunk from 'redux-thunk';
 import { Layout, Menu } from 'antd';
 import createStore from './config/store';
-import HomeRoute from './routes/Home';
-import {LoginRoute} from './routes/Auth';
-import BloggingRoute from './routes/Blogging';
-import CounterRoute from './routes/Counter';
-import DemoFormRoute from './routes/DemoForm';
+import {
+    HomeRoute,
+    LoginRoute,
+    LogoutComponent,
+    BloggingRoute,
+    CounterRoute,
+    DemoFormRoute,
+    DemoPrivatePageRoute,
+} from "./routes";
 import asyncComponent from './components/asyncComponent';
+import PrivateRoute from "./components/PrivateRoute.component";
+// import { sessionService } from 'redux-react-session';
 
 const { Header, Footer, Content } = Layout;
 
 let createStoreWithMiddleware = applyMiddleware(ReduxThunk)(createStore);
 const store = createStoreWithMiddleware(window['__INITIAL_STATE__']);
+// sessionService.initSessionService(store);
 
 class AppComponent extends React.Component {
     render() {
@@ -41,6 +48,10 @@ class AppComponent extends React.Component {
                                 <Menu.Item key="3"><Link to="/counter">Counter</Link></Menu.Item>
                                 <Menu.Item key="4"><Link to="/demo-form">Demo Form</Link></Menu.Item>
                                 <Menu.Item key="5"><Link to="/login">Login</Link></Menu.Item>
+                                <Menu.Item key="6"><Link to="/protected">Protected</Link></Menu.Item>
+                                <Menu.Item disabled={true} style={{"float": "right"}}>
+                                    <LogoutComponent />
+                                </Menu.Item>
                             </Menu>
                         </Header>
                         <br/>
@@ -51,6 +62,7 @@ class AppComponent extends React.Component {
                                 <Route path="/counter" component={asyncComponent(() =>  CounterRoute(store))}/>
                                 <Route path="/demo-form" component={asyncComponent(() =>  DemoFormRoute(store))}/>
                                 <Route path="/login" component={LoginRoute}/>
+                                <PrivateRoute path="/protected" component={DemoPrivatePageRoute}/>
                             </div>
                         </Content>
                         <Footer style={{ textAlign: 'center' }}>

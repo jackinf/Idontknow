@@ -22,6 +22,7 @@
     "redux": "^3.7.2",
     "redux-devtools": "^3.4.0",
     "redux-form": "^7.1.2",
+    "redux-react-session": "^2.2.0",
     "redux-thunk": "^2.2.0",
     "typescript-fsa": "^2.5.0"
   },

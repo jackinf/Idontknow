@@ -2,20 +2,41 @@ import * as React from 'react';
 import {Form, Icon, Input, Button, Checkbox, Row, Col} from 'antd';
 import {FormComponentProps} from 'antd/lib/form/Form';
 import "./Login.component.scss";
+import fakeAuth from "../../utils/fakeAuth";
+import {Redirect} from "react-router";
 
 interface NormalLoginFormProps {}
+interface RoutingData { // TODO: use correct routing type which has all the html routing info
+    location: any;
+}
 
-class NormalLoginForm extends React.Component<NormalLoginFormProps & FormComponentProps> {
+class LoginComponent extends React.Component<RoutingData & NormalLoginFormProps & FormComponentProps> {
+    state = {
+        redirectToReferrer: false
+    };
+
     handleSubmit = (e: any) => {
         e.preventDefault();
         this.props.form.validateFields((err, values) => {
             if (!err) {
                 console.log('Received values of form: ', values);
+
+                fakeAuth.authenticate(() => {
+                    this.setState({ redirectToReferrer: true })
+                })
             }
         });
     };
 
     render() {
+        const { from } = this.props.location.state || { from: { pathname: '/' } };
+
+        if (this.state.redirectToReferrer) {
+            return (
+                <Redirect to={from}/>
+            )
+        }
+
         const {getFieldDecorator} = this.props.form;
         return (
             <Row gutter={16}>
@@ -43,12 +64,9 @@ class NormalLoginForm extends React.Component<NormalLoginFormProps & FormCompone
                             })(
                                 <Checkbox>Remember me</Checkbox>
                             )}
-                            <a className="login-form-forgot" href="">Forgot password</a>
-                            <br/>
                             <Button type="primary" htmlType="submit" className="login-form-button">
                                 Log in
                             </Button>
-                            Or <a href="">register now!</a>
                         </Form.Item>
                     </Form>
                 </Col>
@@ -57,4 +75,4 @@ class NormalLoginForm extends React.Component<NormalLoginFormProps & FormCompone
     }
 }
 
-export default Form.create<NormalLoginFormProps>()(NormalLoginForm);
+export default Form.create<NormalLoginFormProps>()(LoginComponent);

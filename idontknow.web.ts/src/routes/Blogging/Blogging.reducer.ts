@@ -2,14 +2,14 @@ import {Action} from 'redux';
 import {isType} from 'typescript-fsa';
 import {BloggingReducerState} from "./Blogging.models";
 import {asyncActions as fetchAsyncActions} from './actions/Blogging.fetch.action';
-import {asyncActions as createSubmitActions} from './actions/Blogging.create.submit.action';
-import {asyncActions as editSubmitActions} from './actions/Blogging.edit.submit.action';
-import {asyncActions as deleteSubmitActions} from './actions/Blogging.delete.submit.action';
+import {asyncActions as createSubmitActions} from './actions/Create/Blogging.create.submit.action';
+import {asyncActions as editStartActions} from './actions/Edit/Blogging.edit.start.action';
+import {asyncActions as editSubmitActions} from './actions/Edit/Blogging.edit.submit.action';
+import {asyncActions as deleteSubmitActions} from './actions/Delete/Blogging.delete.submit.action';
 import {
     createCancel,
     createStart,
     editCancel,
-    editStart,
     deleteCancel,
     deleteStart,
 } from "./actions";
@@ -54,16 +54,22 @@ export default (state: BloggingReducerState = defaultState, action: Action) => {
 
     // Edit actions
     if (isType(action, editCancel)) {
-        return {type: action.type, createInProgress: false}
+        return {type: action.type, editInProgress: false}
     }
-    if (isType(action, editStart)) {
-        return {type: action.type, createInProgress: true}
+    if (isType(action, editStartActions.started)) {
+        return {type: action.type}
+    }
+    if (isType(action, editStartActions.done)) {
+        return {type: action.type, editInProgress: true, editId: action.payload.result.id}
+    }
+    if (isType(action, editStartActions.failed)) {
+        return {type: action.type}
     }
     if (isType(action, editSubmitActions.started)) {
         return {type: action.type}
     }
     if (isType(action, editSubmitActions.done)) {
-        return {type: action.type, createInProgress: false}
+        return {type: action.type, editInProgress: false}
     }
     if (isType(action, editSubmitActions.failed)) {
         return {type: action.type}

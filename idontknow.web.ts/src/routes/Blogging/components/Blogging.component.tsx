@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {BloggingReducerState, BlogModel} from "./Blogging.models";
+import {BloggingReducerState, BlogModel} from "../Blogging.models";
 import {Table} from "antd";
 import {PaginationProps} from "antd/lib/pagination";
 import Button from "antd/lib/button/button";

@@ -1,5 +1,5 @@
 import {connect} from 'react-redux';
-import Component from './Blogging.component';
+import Component from './components/Blogging.component';
 import {REDUCER_KEY__BLOGGING} from './index';
 import {BloggingReducerState} from './Blogging.models';
 import {

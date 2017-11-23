@@ -10,5 +10,10 @@ export class BlogModel {
 
 export interface BloggingReducerState {
     data: BlogModel[];
-    count: number;
+    loading: boolean;
+    confirmLoading: boolean;
+    pagination: { total: number, current: number, pageSize: number };
+    createInProgress: boolean;
+    editInProgress: boolean;
+    deleteInProgress: boolean;
 }

@@ -1,5 +1,5 @@
 import {connect} from 'react-redux';
-import Component from './BlogCreate.component';
+import Component from './Blogging.edit.component';
 import {BloggingReducerState} from '../Blogging.models';
 
 const mapDispatchToProps = {};

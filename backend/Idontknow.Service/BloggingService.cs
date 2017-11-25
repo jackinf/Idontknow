@@ -42,7 +42,13 @@ namespace Idontknow.Service
             await _unitOfWork.BlogRepository.UpdateBlog(blogId, viewModel);
             return ServiceResultFactory.Success(true);
         }
-        
+
+        public async Task<ServiceResult<bool>> DeleteBlog(int blogId)
+        {
+            await _unitOfWork.BlogRepository.DeleteBlog(blogId);
+            return ServiceResultFactory.Success(true);
+        }
+
         //
         // Posts
         

@@ -16,6 +16,8 @@ namespace Idontknow.Domain.Service
 
         Task<ServiceResult<bool>> UpdateBlog(int blogId, UpdateBlogRequestViewModel viewModel);
 
+        Task<ServiceResult<bool>> DeleteBlog(int blogId);
+        
         //
         // Posts
         

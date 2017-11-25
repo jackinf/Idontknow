@@ -85,6 +85,18 @@ namespace Idontknow.IntegrationTests.Utils
             var result = JsonConvert.DeserializeObject<TResult>(serializedResult);
             return result;
         }
+        
+        public async Task<TResult> HttpDelete<TResult>(string requestUri, Dictionary<string, string> parameters = null)
+        {
+            if (parameters != null)
+                requestUri = Microsoft.AspNetCore.WebUtilities.QueryHelpers.AddQueryString(requestUri, parameters);
+
+            var httpResult = await Client.DeleteAsync(requestUri);
+            httpResult.EnsureSuccessStatusCode();
+            var serializedResult = await httpResult.Content.ReadAsStringAsync();
+            var result = JsonConvert.DeserializeObject<TResult>(serializedResult);
+            return result;
+        }
 
         ~ApiClientFixture()
         {

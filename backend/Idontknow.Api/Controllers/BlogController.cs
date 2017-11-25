@@ -36,6 +36,10 @@ namespace Idontknow.Api.Controllers
         public async Task<IActionResult> UpdateBlog(int blogId, [FromBody] UpdateBlogRequestViewModel viewModel)
             => await HandleResultAsync(() => _service.UpdateBlog(blogId, viewModel));
         
+        [HttpDelete]
+        public async Task<IActionResult> UpdateBlog(int blogId)
+            => await HandleResultAsync(() => _service.DeleteBlog(blogId));
+        
         //
         // Posts
         

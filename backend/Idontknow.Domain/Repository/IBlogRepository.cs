@@ -11,5 +11,7 @@ namespace Idontknow.Domain.Repository
         Task<int> AddBlog(AddBlogRequestViewModel viewModel);
 
         Task UpdateBlog(int blogId, UpdateBlogRequestViewModel viewModel);
+        
+        Task DeleteBlog(int blogId);
     }
 }

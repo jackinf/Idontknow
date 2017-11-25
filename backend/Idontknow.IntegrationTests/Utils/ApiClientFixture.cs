@@ -49,13 +49,24 @@ namespace Idontknow.IntegrationTests.Utils
             Client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(responseContent.TokenType, responseContent.AccessToken);
         }
         
-        public async Task<TResult> GetApiResult<TResult>(string requestUri, Dictionary<string, string> parameters = null)
+        public async Task<TResult> HttpGet<TResult>(string requestUri, Dictionary<string, string> parameters = null)
         {
             if (parameters != null)
                 requestUri = Microsoft.AspNetCore.WebUtilities.QueryHelpers.AddQueryString(requestUri, parameters);
 
             var httpResult = await Client.GetAsync(requestUri);
             httpResult.EnsureSuccessStatusCode();
+            var serializedResult = await httpResult.Content.ReadAsStringAsync();
+            var result = JsonConvert.DeserializeObject<TResult>(serializedResult);
+            return result;
+        }
+
+        public async Task<TResult> HttpPostJson<TResult>(string requestUri, object value)
+        {
+            var contentOne = new StringContent(JsonConvert.SerializeObject(value), Encoding.UTF8, "application/json");
+            var httpResult = await Client.PostAsync(requestUri, contentOne);
+            httpResult.EnsureSuccessStatusCode();
+            
             var serializedResult = await httpResult.Content.ReadAsStringAsync();
             var result = JsonConvert.DeserializeObject<TResult>(serializedResult);
             return result;

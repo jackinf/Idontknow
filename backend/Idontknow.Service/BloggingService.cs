@@ -9,6 +9,7 @@ using Idontknow.Domain.ViewModels.Service.Blog;
 
 namespace Idontknow.Service
 {
+    // ReSharper disable once ClassNeverInstantiated.Global
     public class BloggingService : IBloggingService
     {
         private readonly IBloggingUnitOfWork _unitOfWork;
@@ -27,13 +28,13 @@ namespace Idontknow.Service
             return ServiceResultFactory.SuccessWithPaginator(paginatedListResult);
         }
         
-        public async Task<ServiceResult<bool>> CreateBlog(AddBlogRequestViewModel viewModel)
+        public async Task<ServiceResult<int>> CreateBlog(AddBlogRequestViewModel viewModel)
         {
             await _unitOfWork.BeginTransaction();
-            await _unitOfWork.BlogRepository.AddBlog(viewModel);
+            var newBlogId = await _unitOfWork.BlogRepository.AddBlog(viewModel);
             await _unitOfWork.SaveChangesAsync();
             _unitOfWork.CommitTransaction();
-            return ServiceResultFactory.Success(true);
+            return ServiceResultFactory.Success(newBlogId);
         }
         
         //

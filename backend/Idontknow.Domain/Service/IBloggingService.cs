@@ -10,7 +10,7 @@ namespace Idontknow.Domain.Service
         //
         // Blogs
         
-        Task<ServiceResult<bool>> CreateBlog(AddBlogRequestViewModel viewModel);
+        Task<ServiceResult<int>> CreateBlog(AddBlogRequestViewModel viewModel);
 
         Task<ServiceResult<List<GetBlogsResponseViewModel>>> GetBlogs(GetBlogsRequestViewModel viewModel);
 

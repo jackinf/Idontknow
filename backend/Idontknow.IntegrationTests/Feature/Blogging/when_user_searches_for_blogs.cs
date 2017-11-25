@@ -37,7 +37,7 @@ namespace Idontknow.IntegrationTests.Feature.Blogging
         public async Task user_should_be_able_to_get_blogs_without_filters()
         {
             // act
-            var result = await ApiClientFixture.Current.GetApiResult<ServiceResult<List<GetBlogsResponseViewModel>>>(
+            var result = await ApiClientFixture.Current.HttpGet<ServiceResult<List<GetBlogsResponseViewModel>>>(
                 RequestUri);
             
             // assert
@@ -53,7 +53,7 @@ namespace Idontknow.IntegrationTests.Feature.Blogging
         public async Task  user_should_be_able_to_find_blogs_by_rating()
         {
             // act
-            var result = await ApiClientFixture.Current.GetApiResult<ServiceResult<List<GetBlogsResponseViewModel>>>(
+            var result = await ApiClientFixture.Current.HttpGet<ServiceResult<List<GetBlogsResponseViewModel>>>(
                 RequestUri, 
                 new Dictionary<string, string> { { nameof(GetBlogsRequestViewModel.Rating), "3" } });
             

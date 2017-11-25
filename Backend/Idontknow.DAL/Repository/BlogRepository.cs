@@ -24,6 +24,7 @@ namespace Idontknow.DAL.Repository
                 .OrderBy(b => b.Url)
                 .Select(x => new GetBlogsResponseViewModel
                 {
+                    Id = x.BlogId,
                     Url = x.Url,
                     Rating = x.Rating
                 });

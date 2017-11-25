@@ -32,12 +32,19 @@ namespace Idontknow.DAL.Repository
             return await query.ToPaginatedListResultForViewModelAsync(viewModel);
         }
 
-        public async Task AddBlog(AddBlogRequestViewModel viewModel)
+        public async Task<int> AddBlog(AddBlogRequestViewModel viewModel)
         {
-            await _context.Blogs.AddAsync(new Blog { Url = viewModel.Url, Rating = viewModel.Rating });
+            var newBlog = await _context.Blogs.AddAsync(new Blog { Url = viewModel.Url, Rating = viewModel.Rating });
             await _context.SaveChangesAsync();
+            return newBlog.Entity.BlogId;
         }
 
-
+        public async Task UpdateBlog(int blogId, UpdateBlogRequestViewModel viewModel)
+        {
+            var blog = _context.Blogs.Single(x => x.BlogId == blogId);
+            blog.Url = viewModel.Url;
+            blog.Rating = viewModel.Rating;
+            await _context.SaveChangesAsync();
+        }
     }
 }

@@ -8,12 +8,12 @@ namespace Idontknow.IntegrationTests.Feature.Blogging
 {
     public class when_blog_is_added
     {
-        private readonly int _newBlogId;
+        private readonly int _addedBlogId;
         private const string RequestUri = "/api/blogs";
         
         public when_blog_is_added()
         {
-            _newBlogId = ApiClientFixture.Current.HttpPostJson<ServiceResult<int>>(RequestUri, new AddBlogRequestViewModel
+            _addedBlogId = ApiClientFixture.Current.HttpPostJson<ServiceResult<int>>(RequestUri, new AddBlogRequestViewModel
             {
                 Rating = 4,
                 Url = "www.test.com"
@@ -25,7 +25,7 @@ namespace Idontknow.IntegrationTests.Feature.Blogging
         {
             ApiServerFixture.Current.DoDatabaseOperation(context =>
             {
-                Assert.True(context.Blogs.SingleOrDefault(blog => blog.BlogId == _newBlogId) != null);
+                Assert.True(context.Blogs.SingleOrDefault(blog => blog.BlogId == _addedBlogId) != null);
             });
         }
     }

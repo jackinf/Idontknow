@@ -32,6 +32,10 @@ namespace Idontknow.Api.Controllers
         public async Task<IActionResult> AddBlog([FromBody] AddBlogRequestViewModel viewModel)
             => await HandleResultAsync(() => _service.CreateBlog(viewModel));
         
+        [HttpPut]
+        public async Task<IActionResult> UpdateBlog(int blogId, [FromBody] UpdateBlogRequestViewModel viewModel)
+            => await HandleResultAsync(() => _service.UpdateBlog(blogId, viewModel));
+        
         //
         // Posts
         

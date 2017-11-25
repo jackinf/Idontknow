@@ -9,6 +9,7 @@ namespace Idontknow.Domain.Repository
         Task<PaginatedListResult<GetBlogsResponseViewModel>> GetBlogs(GetBlogsRequestViewModel viewModel);
         
         Task<int> AddBlog(AddBlogRequestViewModel viewModel);
-        
+
+        Task UpdateBlog(int blogId, UpdateBlogRequestViewModel viewModel);
     }
 }

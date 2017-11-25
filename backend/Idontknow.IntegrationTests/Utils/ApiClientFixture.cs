@@ -72,6 +72,20 @@ namespace Idontknow.IntegrationTests.Utils
             return result;
         }
 
+        public async Task<TResult> HttpPutJson<TResult>(string requestUri, object value, Dictionary<string, string> parameters = null)
+        {
+            if (parameters != null)
+                requestUri = Microsoft.AspNetCore.WebUtilities.QueryHelpers.AddQueryString(requestUri, parameters);
+            
+            var contentOne = new StringContent(JsonConvert.SerializeObject(value), Encoding.UTF8, "application/json");
+            var httpResult = await Client.PutAsync(requestUri, contentOne);
+            httpResult.EnsureSuccessStatusCode();
+            
+            var serializedResult = await httpResult.Content.ReadAsStringAsync();
+            var result = JsonConvert.DeserializeObject<TResult>(serializedResult);
+            return result;
+        }
+
         ~ApiClientFixture()
         {
             Dispose();

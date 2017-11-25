@@ -14,6 +14,8 @@ namespace Idontknow.Domain.Service
 
         Task<ServiceResult<List<GetBlogsResponseViewModel>>> GetBlogs(GetBlogsRequestViewModel viewModel);
 
+        Task<ServiceResult<bool>> UpdateBlog(int blogId, UpdateBlogRequestViewModel viewModel);
+
         //
         // Posts
         

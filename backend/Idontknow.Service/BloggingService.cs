@@ -27,7 +27,7 @@ namespace Idontknow.Service
             var paginatedListResult = await _unitOfWork.BlogRepository.GetBlogs(viewModel);
             return ServiceResultFactory.SuccessWithPaginator(paginatedListResult);
         }
-        
+
         public async Task<ServiceResult<int>> CreateBlog(AddBlogRequestViewModel viewModel)
         {
             await _unitOfWork.BeginTransaction();
@@ -35,6 +35,12 @@ namespace Idontknow.Service
             await _unitOfWork.SaveChangesAsync();
             _unitOfWork.CommitTransaction();
             return ServiceResultFactory.Success(newBlogId);
+        }
+        
+        public async Task<ServiceResult<bool>> UpdateBlog(int blogId, UpdateBlogRequestViewModel viewModel)
+        {
+            await _unitOfWork.BlogRepository.UpdateBlog(blogId, viewModel);
+            return ServiceResultFactory.Success(true);
         }
         
         //

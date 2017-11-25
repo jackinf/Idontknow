@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using AspNet.Security.OpenIdConnect.Primitives;
 using Idontknow.DAL;
 using Idontknow.DAL.Repository;
@@ -172,12 +173,10 @@ namespace Idontknow.Api
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
             });
             
-            //Create Database
+            //Create Database and automatically run migrations
             using (var serviceScope = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>().CreateScope())
             {
-                var dbContext = serviceScope.ServiceProvider.GetService<ApplicationDbContext>();
-                
-                // run Migrations
+                var dbContext = serviceScope.ServiceProvider.GetService<ApplicationDbContext>();     
                 dbContext.Database.Migrate();
             }
             

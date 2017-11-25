@@ -46,5 +46,12 @@ namespace Idontknow.DAL.Repository
             blog.Rating = viewModel.Rating;
             await _context.SaveChangesAsync();
         }
+
+        public async Task DeleteBlog(int blogId)
+        {
+            var blog = _context.Blogs.Single(x => x.BlogId == blogId);
+            _context.Blogs.Remove(blog);
+            await _context.SaveChangesAsync();
+        }
     }
 }

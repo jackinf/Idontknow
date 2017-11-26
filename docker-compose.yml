@@ -4,10 +4,15 @@ services:
   idontknow.rest:
     image: idontknow.rest
     build:
-      context: ./Idontknow.Rest
+      context: ./backend/Idontknow.Api
       dockerfile: Dockerfile
   idontknow.web:
     image: idontknow.web
     build:
-      context: ./Idontknow.Web
+      context: ./frontend/Idontknow.web
+      dockerfile: Dockerfile
+  idontknow.web.ts:
+    image: idontknow.web.ts
+    build:
+      context: ./frontend/Idontknow.web.ts
       dockerfile: Dockerfile

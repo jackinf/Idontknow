@@ -8,4 +8,7 @@ services:
       - "9005:80"
   idontknow.web:
     ports:
-      - "9006:3000"
+      - "9006:3006"
+  idontknow.web:
+    ports:
+      - "9007:3007"

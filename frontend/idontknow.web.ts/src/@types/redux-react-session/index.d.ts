@@ -1,14 +1,14 @@
-declare module "redux-react-session" {
-    import {Reducer} from "redux";
+declare module 'redux-react-session' {
+    import { Reducer } from 'redux';
 
     export interface SessionReducer extends Reducer<any> {}
 
     export const sessionReducer: SessionReducer;
 
-    interface SessionUser { email: string; firstName: string; lastName: string }
+    interface SessionUser { email: string; firstName: string; lastName: string; }
 
     export interface SessionService {
-        initSessionService: (any)
+        initSessionService: (any);
 
         saveSession(param: { token: string }): void;
 

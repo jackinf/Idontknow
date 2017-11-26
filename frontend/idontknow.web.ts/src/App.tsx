@@ -20,17 +20,15 @@ import {
     DemoFormRoute,
     DemoTableRoute,
     DemoPrivatePageRoute,
-} from "./routes";
+} from './routes';
 import asyncComponent from './components/asyncComponent';
-import PrivateRoute from "./components/PrivateRoute.component";
-
-// import { sessionService } from 'redux-react-session';
+import PrivateRoute from './components/PrivateRoute.component';
 
 const { Header, Footer, Content } = Layout;
 
 let createStoreWithMiddleware = applyMiddleware(ReduxThunk)(createStore);
+// noinspection TsLint
 const store = createStoreWithMiddleware(window['__INITIAL_STATE__']);
-// sessionService.initSessionService(store);
 
 class AppComponent extends React.Component {
     render() {
@@ -54,7 +52,7 @@ class AppComponent extends React.Component {
                                     <Menu.Item key="5"><Link to="/demo-table">Demo Table</Link></Menu.Item>
                                     <Menu.Item key="6"><Link to="/login">Login</Link></Menu.Item>
                                     <Menu.Item key="7"><Link to="/protected">Protected</Link></Menu.Item>
-                                    <Menu.Item disabled={true} style={{"float": "right"}}>
+                                    <Menu.Item disabled={true} style={{'float': 'right'}}>
                                         <LogoutComponent />
                                     </Menu.Item>
                                 </Menu>

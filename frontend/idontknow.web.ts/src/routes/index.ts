@@ -1,10 +1,10 @@
 import HomeRoute from './Home';
-import {LoginRoute, LogoutComponent} from './Auth';
+import { LoginRoute, LogoutComponent } from './Auth';
 import BloggingRoute from './Blogging';
 import CounterRoute from './Counter';
 import DemoFormRoute from './DemoForm';
 import DemoTableRoute from './DemoTable';
-import DemoPrivatePageRoute from "./DemoPrivatePage";
+import DemoPrivatePageRoute from './DemoPrivatePage';
 
 export {
     HomeRoute,
@@ -15,4 +15,4 @@ export {
     DemoFormRoute,
     DemoTableRoute,
     DemoPrivatePageRoute,
-}
+};

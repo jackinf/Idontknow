@@ -1,8 +1,8 @@
-import {connect} from 'react-redux';
-import DemoFormComponent, {SimpleDemoDispatchProps, SimpleDemoStateProps} from './DemoForm.component';
-import submitForm from "./actions/DemoForm.submit";
-import {DemoFormState} from "./DemoForm.reducer";
-import {REDUCER_KEY__DEMO_FORM} from "./index";
+import { connect } from 'react-redux';
+import DemoFormComponent, { SimpleDemoDispatchProps, SimpleDemoStateProps } from './DemoForm.component';
+import submitForm from './actions/DemoForm.submit';
+import { DemoFormState } from './DemoForm.reducer';
+import { REDUCER_KEY__DEMO_FORM } from './index';
 
 const mapDispatchToProps = {
     submitForm
@@ -13,7 +13,8 @@ const mapStateToProps = (state: any): SimpleDemoStateProps => {
 
     return {
         haha: currentState.haha
-    }
+    };
 };
 
-export default connect<SimpleDemoStateProps, SimpleDemoDispatchProps, any>(mapStateToProps, mapDispatchToProps)(DemoFormComponent)
+export default connect<SimpleDemoStateProps, SimpleDemoDispatchProps, any>(
+    mapStateToProps, mapDispatchToProps)(DemoFormComponent);

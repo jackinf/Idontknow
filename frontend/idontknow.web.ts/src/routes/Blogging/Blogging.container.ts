@@ -1,7 +1,7 @@
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 import Component from './components/Blogging.component';
-import {REDUCER_KEY__BLOGGING} from './index';
-import {BloggingReducerState} from './Blogging.models';
+import { REDUCER_KEY__BLOGGING } from './index';
+import { BloggingReducerState } from './Blogging.models';
 import {
     fetchAsync,
     createCancel,
@@ -38,7 +38,7 @@ const mapStateToProps = (state: {[reducerKey: string]: BloggingReducerState}) =>
         createInProgress: currentReducer.createInProgress,
         editInProgress: currentReducer.editInProgress,
         deleteInProgress: currentReducer.deleteInProgress
-    }
+    };
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Component);

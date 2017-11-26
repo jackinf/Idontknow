@@ -1,3 +1,3 @@
-import DemoPrivatePageComponent from "./DemoPrivatePage.component";
+import DemoPrivatePageComponent from './DemoPrivatePage.component';
 
 export default DemoPrivatePageComponent;

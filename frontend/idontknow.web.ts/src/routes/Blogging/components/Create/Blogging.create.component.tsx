@@ -1,20 +1,20 @@
 import * as React from 'react';
-import {Field, InjectedFormProps, reduxForm} from "redux-form";
+import { Field, InjectedFormProps, reduxForm } from 'redux-form';
 
 export interface FormProps {
     rating: number;
     url: string;
 }
 
-export const blogCreateComponentFormName = "blogCreateComponentForm";
+export const blogCreateComponentFormName = 'blogCreateComponentForm';
 class BlogCreateComponent extends React.Component<InjectedFormProps<FormProps>> {
     render() {
         return (
             <div>
-                <Field name='rating' component='input' placeholder='Rating' />
-                <Field name='url' component='input' placeholder='Url' />
+                <Field name="rating" component="input" placeholder="Rating" />
+                <Field name="url" component="input" placeholder="Url" />
             </div>
-        )
+        );
     }
 }
 

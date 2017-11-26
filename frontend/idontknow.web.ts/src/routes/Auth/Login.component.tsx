@@ -1,9 +1,9 @@
 import * as React from 'react';
-import {Form, Icon, Input, Button, Checkbox, Row, Col} from 'antd';
-import {FormComponentProps} from 'antd/lib/form/Form';
-import "./Login.component.scss";
-import fakeAuth from "../../utils/fakeAuth";
-import {Redirect} from "react-router";
+import { Form, Icon, Input, Button, Checkbox, Row, Col } from 'antd';
+import { FormComponentProps } from 'antd/lib/form/Form';
+import './Login.component.scss';
+import fakeAuth from '../../utils/fakeAuth';
+import { Redirect } from 'react-router';
 
 interface NormalLoginFormProps {}
 interface RoutingData { // TODO: use correct routing type which has all the html routing info
@@ -22,11 +22,11 @@ class LoginComponent extends React.Component<RoutingData & NormalLoginFormProps 
                 console.log('Received values of form: ', values);
 
                 fakeAuth.authenticate(() => {
-                    this.setState({ redirectToReferrer: true })
-                })
+                    this.setState({ redirectToReferrer: true });
+                });
             }
         });
-    };
+    }
 
     render() {
         const { from } = this.props.location.state || { from: { pathname: '/' } };
@@ -34,7 +34,7 @@ class LoginComponent extends React.Component<RoutingData & NormalLoginFormProps 
         if (this.state.redirectToReferrer) {
             return (
                 <Redirect to={from}/>
-            )
+            );
         }
 
         const {getFieldDecorator} = this.props.form;

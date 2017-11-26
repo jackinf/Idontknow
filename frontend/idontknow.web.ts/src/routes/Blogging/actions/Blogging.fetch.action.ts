@@ -1,14 +1,14 @@
 import actionCreatorFactory from 'typescript-fsa';
-import {Dispatch} from "redux";
-import {REDUCER_KEY__BLOGGING} from "../index";
-import {BlogModel} from "../Blogging.models";
+import { Dispatch } from 'redux';
+import { REDUCER_KEY__BLOGGING } from '../index';
+import { BlogModel } from '../Blogging.models';
 
 const actionCreator = actionCreatorFactory();
-const type = "BLOGGING/FETCH";
-export const asyncActions = actionCreator.async<{loading: boolean}, {}, {data: BlogModel[], pagination: any}>(type);
+const type = 'BLOGGING/FETCH';
+export const asyncActions = actionCreator.async<{loading: boolean}, {}, {data: BlogModel[], pagination: {}}>(type);
 
-export default function fetchAsync(cb: Function) {
-    return (dispatch: Dispatch<any>, getState: any) => {
+export default function fetchAsync() {
+    return (dispatch: Dispatch<{}>, getState: Function) => {
         const state = getState();
         const currentState = state[REDUCER_KEY__BLOGGING];
 
@@ -21,5 +21,5 @@ export default function fetchAsync(cb: Function) {
         } catch (error) {
             asyncActions.failed({params: {loading: false}, error: error});
         }
-    }
+    };
 }

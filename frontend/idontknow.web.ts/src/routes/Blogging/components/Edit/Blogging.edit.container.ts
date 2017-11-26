@@ -1,6 +1,6 @@
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 import Component from './Blogging.edit.component';
-import {BloggingReducerState} from '../../Blogging.models';
+import { BloggingReducerState } from '../../Blogging.models';
 
 const mapDispatchToProps = {};
 const mapStateToProps = (state: {[reducerKey: string]: BloggingReducerState}) => ({});

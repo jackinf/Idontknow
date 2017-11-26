@@ -1,11 +1,11 @@
-import {applyMiddleware, compose, createStore, GenericStoreEnhancer} from 'redux';
+import { applyMiddleware, compose, createStore, GenericStoreEnhancer } from 'redux';
 import thunk from 'redux-thunk';
 import createReducer from './reducers';
 
 const __DEV__ = true; // TODO: get development mode from environments
 const asyncReducers: any = { b: () => 2 };
 
-export default function configureStore(initialState = {}) { // TODO: use typedef
+export default function configureStore(initialState: any = {}) { // TODO: use typedef
 
     // ======================================================
     // Store Enhancers

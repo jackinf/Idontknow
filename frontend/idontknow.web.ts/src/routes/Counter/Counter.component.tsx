@@ -19,8 +19,8 @@ class Counter extends React.Component<CounterProps> {
                 <Button type="primary" onClick={onDecrement}>-</Button>
                 {' '}
             </p>
-        )
+        );
     }
 }
 
-export default Counter
+export default Counter;

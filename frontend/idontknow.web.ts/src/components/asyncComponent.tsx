@@ -6,8 +6,6 @@ interface AsyncComponentState{
 
 function asyncComponent(getComponent: any): any  {
     class AsyncComponent extends React.Component<{},AsyncComponentState> {
-
-
         constructor(props: any) {
             super(props);
 
@@ -21,10 +19,7 @@ function asyncComponent(getComponent: any): any  {
             this.setState({
                 Component: Component
             });
-
-
         }
-
 
         render() {
             const C = this.state.Component;
@@ -32,7 +27,6 @@ function asyncComponent(getComponent: any): any  {
         }
     }
     return AsyncComponent;
-
 }
 
 export default asyncComponent;

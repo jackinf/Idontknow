@@ -1,3 +1,3 @@
-import BlogCreate from "./Blogging.create.container";
+import BlogCreate from './Blogging.create.container';
 
 export default BlogCreate;

@@ -1,11 +1,11 @@
 import * as React from 'react';
-import {BloggingReducerState, BlogModel} from "../Blogging.models";
-import {Table} from "antd";
-import {PaginationProps} from "antd/lib/pagination";
-import Button from "antd/lib/button/button";
-import Modal from "antd/lib/modal/Modal";
-import BlogCreate from "./Create";
-import BlogEdit from "./Edit";
+import { BloggingReducerState, BlogModel } from '../Blogging.models';
+import { Table } from 'antd';
+import { PaginationProps } from 'antd/lib/pagination';
+import Button from 'antd/lib/button/button';
+import Modal from 'antd/lib/modal/Modal';
+import BlogCreate from './Create';
+import BlogEdit from './Edit';
 
 class TestPersonTable extends Table<BlogModel> {}
 
@@ -44,7 +44,7 @@ class BloggingComponent extends React.Component<BloggingComponentProps, Blogging
             sortOrder: sorter.order,
             ...filters,
         });
-    };
+    }
 
     showCreateNewModal = () => { this.props.createStart(); };
     handleCreateNewConfirm = () => { this.props.createSubmit(() => this.props.fetchAsync()); };
@@ -76,27 +76,29 @@ class BloggingComponent extends React.Component<BloggingComponentProps, Blogging
                     onChange={this.handleTableChange}
                 />
 
-                <Modal title="Create new blog"
-                       visible={createInProgress}
-                       onOk={this.handleCreateNewConfirm}
-                       confirmLoading={confirmLoading}
-                       onCancel={this.handleCreateNewCancel}
+                <Modal
+                    title="Create new blog"
+                    visible={createInProgress}
+                    onOk={this.handleCreateNewConfirm}
+                    confirmLoading={confirmLoading}
+                    onCancel={this.handleCreateNewCancel}
                 >
                     <BlogCreate />
                 </Modal>
 
-                <Modal title="Edit new blog"
-                       visible={editInProgress}
-                       onOk={this.handleEditConfirm}
-                       confirmLoading={confirmLoading}
-                       onCancel={this.handleEditCancel}
+                <Modal
+                    title="Edit new blog"
+                    visible={editInProgress}
+                    onOk={this.handleEditConfirm}
+                    confirmLoading={confirmLoading}
+                    onCancel={this.handleEditCancel}
                 >
                     <BlogEdit />
                 </Modal>
 
             </div>
-        )
+        );
     }
 }
 
-export default BloggingComponent
+export default BloggingComponent;

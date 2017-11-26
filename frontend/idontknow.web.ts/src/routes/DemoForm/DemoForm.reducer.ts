@@ -1,12 +1,12 @@
-import {Action} from 'redux';
-import {isType} from 'typescript-fsa';
-import {submitFormAsyncActions} from './actions/DemoForm.submit';
+import { Action } from 'redux';
+import { isType } from 'typescript-fsa';
+import { submitFormAsyncActions } from './actions/DemoForm.submit';
 
 export interface DemoFormState {
     type: string;
     haha: string;
 }
-const defaultDemoFormState = {type: "", haha: "no data"};
+const defaultDemoFormState = {type: '', haha: 'no data'};
 
 export default (state: DemoFormState = defaultDemoFormState, action: Action): DemoFormState => {
     if (isType(action, submitFormAsyncActions.started)) {
@@ -21,5 +21,5 @@ export default (state: DemoFormState = defaultDemoFormState, action: Action): De
         return {type: action.type, haha: action.payload.params.foo + action.payload.error.code};
     }
 
-    return {type: "", haha: state.haha};
-}
+    return {type: '', haha: state.haha};
+};

@@ -1,9 +1,9 @@
 import * as React from 'react';
-import {DemoTableReducerState} from "./DemoTable.models";
-import {Table} from "antd";
-import {PaginationProps} from "antd/lib/pagination";
-import axios, {AxiosResponse} from 'axios';
-import {RandomUserMeResponse, TestPersonModel} from "./DemoTable.models";
+import { DemoTableReducerState } from './DemoTable.models';
+import { Table } from 'antd';
+import { PaginationProps } from 'antd/lib/pagination';
+import axios, { AxiosResponse } from 'axios';
+import { RandomUserMeResponse, TestPersonModel } from './DemoTable.models';
 
 class TestPersonTable extends Table<TestPersonModel> {}
 
@@ -54,7 +54,7 @@ class BloggingComponent extends React.Component<DemoTableComponentProps, DemoTab
             sortOrder: sorter.order,
             ...filters,
         });
-    };
+    }
 
     fetch = (params = {}) => {
         console.log('params:', params);
@@ -77,7 +77,7 @@ class BloggingComponent extends React.Component<DemoTableComponentProps, DemoTab
                 pagination,
             });
         });
-    };
+    }
 
     componentDidMount() {
         this.fetch();
@@ -101,8 +101,8 @@ class BloggingComponent extends React.Component<DemoTableComponentProps, DemoTab
                 />
 
             </div>
-        )
+        );
     }
 }
 
-export default BloggingComponent
+export default BloggingComponent;

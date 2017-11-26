@@ -1,4 +1,4 @@
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 import CounterComponent from './Counter.component';
 
 const mapDispatchToProps = {
@@ -7,7 +7,7 @@ const mapDispatchToProps = {
 };
 
 const mapStateToProps = (state: any) => ({
-    value: state['counter']
+    value: state.counter
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(CounterComponent)

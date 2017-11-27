@@ -5,7 +5,7 @@ VisualStudioVersion = 15.0.27004.2005
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{0AFD92BD-1FBB-4DBF-94EA-7F369AD4F011}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Idontknow.DAL", "Backend\Idontknow.DAL\Idontknow.DAL.csproj", "{8349A614-5FD7-4D42-BF8D-E6A688AA40FE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Idontknow.DAL", "backend\Idontknow.DAL\Idontknow.DAL.csproj", "{8349A614-5FD7-4D42-BF8D-E6A688AA40FE}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Idontknow.Api", "backend\Idontknow.Api\Idontknow.Api.csproj", "{2781A012-0551-4BCD-A3BA-7199CC0A9B35}"
 EndProject

@@ -70,7 +70,7 @@ class AppComponent extends React.Component {
                                 </div>
                             </Content>
                             <Footer style={{ textAlign: 'center' }}>
-                                Ant Design ©2016 Created by Ant UED
+                                You are running this application in <b>{process.env.NODE_ENV}</b> mode.
                             </Footer>
                         </Layout>
 

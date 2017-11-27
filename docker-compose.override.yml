@@ -10,5 +10,7 @@ services:
     ports:
       - "9006:3006"
   idontknow.web:
+    environment:
+      - HAHA=123
     ports:
-      - "9007:3007"
+      - "9007:5000"

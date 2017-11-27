@@ -15,15 +15,16 @@ export interface FormProps {
 }
 
 export const SimpleDemoFormName: string = 'simpleDemoForm';
-class SimpleDemoForm extends React.Component<SimpleDemoStateProps & SimpleDemoDispatchProps & InjectedFormProps<FormProps>> {
+class SimpleDemoForm extends React.Component<SimpleDemoStateProps & SimpleDemoDispatchProps
+    & InjectedFormProps<FormProps>> {
     resetForm = () => {
         this.props.initialize({foo: 'test123'});
         // initialize(SimpleDemoFormName, {foo: "test123"}); // this is alternative way
-    }
+    };
 
     submitForm = () => {
         this.props.submitForm();
-    }
+    };
 
     render() {
         const {haha} = this.props;

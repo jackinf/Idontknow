@@ -1,11 +1,11 @@
 import * as React from 'react';
 
-interface AsyncComponentState{
+interface AsyncComponentState {
     Component: any;
 }
 
 function asyncComponent(getComponent: any): any  {
-    class AsyncComponent extends React.Component<{},AsyncComponentState> {
+    class AsyncComponent extends React.Component<{}, AsyncComponentState> {
         constructor(props: any) {
             super(props);
 
@@ -14,7 +14,7 @@ function asyncComponent(getComponent: any): any  {
             };
         }
 
-        async componentDidMount(){
+        async componentDidMount() {
             const {default: Component} = await getComponent();
             this.setState({
                 Component: Component
@@ -23,7 +23,7 @@ function asyncComponent(getComponent: any): any  {
 
         render() {
             const C = this.state.Component;
-            return C ? <C {...this.props}/> : <div>....Loading</div>
+            return C ? <C {...this.props}/> : <div>....Loading</div>;
         }
     }
     return AsyncComponent;

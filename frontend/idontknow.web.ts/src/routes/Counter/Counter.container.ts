@@ -10,4 +10,4 @@ const mapStateToProps = (state: any) => ({
     value: state.counter
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(CounterComponent)
+export default connect(mapStateToProps, mapDispatchToProps)(CounterComponent);

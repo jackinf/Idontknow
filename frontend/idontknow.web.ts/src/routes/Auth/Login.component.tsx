@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Form, Icon, Input, Button, Checkbox, Row, Col } from 'antd';
 import { FormComponentProps } from 'antd/lib/form/Form';
 import './Login.component.scss';
-import fakeAuth from '../../utils/fakeAuth';
+import fakeAuth from '../../helpers/authUtils';
 import { Redirect } from 'react-router';
 
 interface NormalLoginFormProps {}
@@ -53,8 +53,11 @@ class LoginComponent extends React.Component<RoutingData & NormalLoginFormProps 
                             {getFieldDecorator('password', {
                                 rules: [{required: true, message: 'Please input your Password!'}],
                             })(
-                                <Input prefix={<Icon type="lock" style={{fontSize: 13}}/>} type="password"
-                                       placeholder="Password"/>
+                                <Input
+                                    prefix={<Icon type="lock" style={{fontSize: 13}}/>}
+                                    type="password"
+                                    placeholder="Password"
+                                />
                             )}
                         </Form.Item>
                         <Form.Item>

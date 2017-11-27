@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { withRouter } from 'react-router-dom';
-import fakeAuth from '../../utils/fakeAuth';
+import fakeAuth from '../../helpers/authUtils';
 import Button from 'antd/lib/button/button';
 
 export default class LogoutComponent extends React.Component {
